@@ -71,9 +71,8 @@ export default function AccountApprovalsPage() {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className={`px-2 py-1 text-[10px] font-black uppercase rounded-lg ${user.role === 'coaching' ? 'bg-blue-50 text-blue-600' : 'bg-orange-50 text-orange-600'
-                                                    }`}>
-                                                    {user.profession || 'N/A'}
+                                                <span className={`px-2 py-1 text-[10px] font-black uppercase rounded-lg ${user.role === 'owner' ? 'bg-blue-50 text-blue-600' : 'bg-orange-50 text-orange-600'}`}>
+                                                    {user.role === 'owner' ? 'Business Owner' : 'Professional'}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4">
@@ -129,7 +128,7 @@ export default function AccountApprovalsPage() {
                     </div>
                     <p className="text-[11px] text-orange-700 font-medium leading-relaxed">
                         <span className="font-bold uppercase tracking-wider block mb-1 underline">Security Protocol</span>
-                        Once approved, users will gain immediate access to their respective dashboards (Coaching or Broker). Rejected users will be permanently blocked from accessing the system using their registered credentials.
+                        Once approved, users will gain immediate access to their respective dashboards (Business Owner or Professional). Rejected users will be permanently blocked from accessing the system using their registered credentials.
                     </p>
                 </div>
             </div>

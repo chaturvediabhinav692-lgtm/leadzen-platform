@@ -28,11 +28,11 @@ export default function SidebarShell({ navItems }: SidebarShellProps) {
     const [role, setRole] = useState<string | null>(null);
 
     useEffect(() => {
-        setRole(localStorage.getItem("leadflow_role"));
+        setRole(localStorage.getItem("leadzen_role"));
     }, []);
 
     const user =
-        role === "coaching"
+        role === "owner"
             ? {
                 name: "Business Manager",
                 email: "manager@leadzen.com",

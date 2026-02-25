@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Hero from "@/components/marketing/Hero";
 import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
@@ -41,7 +42,7 @@ export default function EuonexHomePage() {
                                     "Team performance tracking",
                                     "Real-time action queue"
                                 ]}
-                                href="/euonex/products/leadflow"
+                                href="/euonex/products/leadzen"
                                 preview={
                                     <div className="p-8 flex flex-col gap-6">
                                         <div className="h-4 w-1/3 bg-white/10 rounded" />
@@ -81,9 +82,12 @@ export default function EuonexHomePage() {
                         </h2>
                         <p className="text-xl text-slate-400 mb-12">Join the elite businesses building their future on Euonex.</p>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <button className="w-full sm:w-auto px-12 py-5 bg-white text-black font-black rounded-2xl hover:bg-slate-200 transition-all active:scale-95 text-xl shadow-2xl shadow-white/10">
-                                Get Started Now
-                            </button>
+                            <Link
+                                href="/euonex/products/leadzen"
+                                className="w-full sm:w-auto px-12 py-5 bg-white text-black font-black rounded-2xl hover:bg-slate-200 transition-all active:scale-95 text-xl shadow-2xl shadow-white/10 flex items-center justify-center"
+                            >
+                                Explore Leadzen
+                            </Link>
                         </div>
                     </div>
                 </section>

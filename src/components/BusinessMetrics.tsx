@@ -32,13 +32,13 @@ export default function BusinessMetrics() {
                 label="Hot Leads Count"
                 value={hotLeads}
                 icon={Flame}
-                color="orange"
+                color="yellow"
             />
             <StatsCard
                 label="Conversion Rate"
                 value={`${conversionRate}%`}
                 icon={TrendingUp}
-                color="indigo"
+                color="purple"
             />
             <StatsCard
                 label="Avg Response"

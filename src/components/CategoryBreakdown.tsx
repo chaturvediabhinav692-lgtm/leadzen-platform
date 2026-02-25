@@ -2,22 +2,22 @@
 
 import { useStore } from '@/lib/store';
 import { ClientCategory } from '@/lib/mockData';
-import { BookOpen, Stethoscope, Landmark, Briefcase, Calculator } from 'lucide-react';
+import { Landmark, Home, Building2, Building, Search } from 'lucide-react';
 
-const icons: Record<ClientCategory, React.ElementType> = {
-    JEE: Calculator,
-    NEET: Stethoscope,
-    UPSC: Landmark,
-    SSC: Briefcase,
-    Commerce: BookOpen
+const icons: Record<string, any> = {
+    '2BHK Flat': Home,
+    '3BHK Luxury': Building2,
+    'Penthouse': Building,
+    'Villa': Home,
+    'Commercial Plot': Landmark,
 };
 
-const colors: Record<ClientCategory, string> = {
-    JEE: 'bg-blue-100 text-blue-700',
-    NEET: 'bg-green-100 text-green-700',
-    UPSC: 'bg-purple-100 text-purple-700',
-    SSC: 'bg-orange-100 text-orange-700',
-    Commerce: 'bg-pink-100 text-pink-700'
+const colors: Record<string, string> = {
+    '2BHK Flat': 'bg-blue-100 text-blue-700',
+    '3BHK Luxury': 'bg-green-100 text-green-700',
+    'Penthouse': 'bg-purple-100 text-purple-700',
+    'Villa': 'bg-orange-100 text-orange-700',
+    'Commercial Plot': 'bg-pink-100 text-pink-700'
 };
 
 export default function CategoryBreakdown() {
@@ -25,11 +25,12 @@ export default function CategoryBreakdown() {
 
     // Aggregate counts
     const breakdown = clients.reduce((acc, client) => {
-        acc[client.category] = (acc[client.category] || 0) + 1;
+        const cat = client.category as string;
+        acc[cat] = (acc[cat] || 0) + 1;
         return acc;
-    }, {} as Record<ClientCategory, number>);
+    }, {} as Record<string, number>);
 
-    const categories = Object.keys(breakdown) as ClientCategory[];
+    const categories = Object.keys(breakdown);
 
     return (
         <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
@@ -39,13 +40,14 @@ export default function CategoryBreakdown() {
                 {categories.map(cat => {
                     const count = breakdown[cat];
                     const percentage = ((count / clients.length) * 100).toFixed(0);
-                    const Icon = icons[cat] || BookOpen;
+                    const Icon = icons[cat] || Search;
+                    const colorClasses = colors[cat] || 'bg-slate-100 text-slate-700';
 
                     return (
                         <div key={cat} className="space-y-1">
                             <div className="flex justify-between items-center text-sm">
                                 <div className="flex items-center gap-2">
-                                    <div className={`p-1.5 rounded-md ${colors[cat]}`}>
+                                    <div className={`p-1.5 rounded-md ${colorClasses}`}>
                                         <Icon size={14} />
                                     </div>
                                     <span className="font-medium text-slate-700">{cat}</span>
@@ -56,10 +58,12 @@ export default function CategoryBreakdown() {
                             {/* Progress Bar */}
                             <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
                                 <div
-                                    className={`h-full rounded-full ${colors[cat].split(' ')[0].replace('bg-', 'bg-')}`}
-                                    // Note: simple hack to get the dark version of bg color for the bar
-                                    // better to just map valid bg colors. 
-                                    style={{ width: `${percentage}%`, backgroundColor: 'currentColor' }}
+                                    className="h-full rounded-full bg-current opacity-20"
+                                    style={{ width: `${percentage}%` }}
+                                />
+                                <div
+                                    className={`h-full rounded-full -mt-2 ${colorClasses.split(' ')[0]}`}
+                                    style={{ width: `${percentage}%` }}
                                 />
                             </div>
                         </div>

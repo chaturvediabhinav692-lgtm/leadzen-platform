@@ -1,7 +1,7 @@
 
 import { Ticket, INITIAL_TICKETS } from './adminData';
 
-const STORAGE_KEY = 'leadflow_tickets';
+const STORAGE_KEY = 'leadzen_tickets';
 
 export const getStoredTickets = (): Ticket[] => {
     if (typeof window === 'undefined') return INITIAL_TICKETS;

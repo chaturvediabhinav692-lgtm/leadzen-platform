@@ -30,17 +30,17 @@ export const PLATFORM_CLIENTS: PlatformClient[] = [
 
 export const INITIAL_TICKETS: Ticket[] = [
     {
-        id: 't1', userId: 'u1', userName: 'Rajesh Kumar (Broker)',
+        id: 't1', userId: 'u1', userName: 'Rajesh Kumar (Professional)',
         issueType: 'Technical', priority: 'High', description: 'Dashboard not loading on mobile info.',
         status: 'Open', createdDate: new Date(Date.now() - 86400000 * 2).toISOString()
     },
     {
-        id: 't2', userId: 'u2', userName: 'Apex Coaching (Owner)',
+        id: 't2', userId: 'u2', userName: 'Apex Business (Owner)',
         issueType: 'Billing', priority: 'Medium', description: 'Need invoice for Oct.',
         status: 'Resolved', createdDate: new Date(Date.now() - 86400000 * 5).toISOString()
     },
     {
-        id: 't3', userId: 'u1', userName: 'Rajesh Kumar (Broker)',
+        id: 't3', userId: 'u1', userName: 'Rajesh Kumar (Professional)',
         issueType: 'Feature Request', priority: 'Low', description: 'Add dark mode please.',
         status: 'Open', createdDate: new Date(Date.now() - 3600000).toISOString()
     },

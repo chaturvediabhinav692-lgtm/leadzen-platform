@@ -5,7 +5,7 @@ import SidebarShell from './SidebarShell';
 
 const navItems = [
     { name: 'Command Center', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'Lead Intake Panel', href: '/student-dashboard', icon: Briefcase },
+    { name: 'Lead Intake Panel', href: '/intake-panel', icon: Briefcase },
     { name: 'Clients', href: '/clients', icon: Users },
     { name: 'Ticket Center', href: '/my-tickets', icon: LifeBuoy },
     { name: 'Report Issue', href: '/help', icon: Flag },
@@ -13,5 +13,5 @@ const navItems = [
 ];
 
 export default function OwnerSidebar() {
-    return <SidebarShell navItems={navItems} roleLabel="Coaching Owner" roleEmail="owner@coaching.com" roleBadge="OW" />;
+    return <SidebarShell navItems={navItems} roleLabel="Business Owner" roleEmail="owner@euonex.io" roleBadge="OW" />;
 }

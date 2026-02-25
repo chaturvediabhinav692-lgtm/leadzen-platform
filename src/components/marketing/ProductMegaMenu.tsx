@@ -11,7 +11,7 @@ interface ProductMegaMenuProps {
 
 const products = [
     {
-        id: "leadflow",
+        id: "leadzen",
         name: "Leadflow",
         description: "WhatsApp-first lead conversion system for high-performance teams",
         href: "/euonex/products",

@@ -57,7 +57,7 @@ export default function ProductsPage() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8 }}
                                 className="group relative cursor-pointer"
-                                onClick={() => router.push("/product/leadflow")}
+                                onClick={() => router.push("/product/leadzen")}
                             >
                                 <div className="relative bg-[#0B0B0F] border border-white/10 rounded-[2rem] p-4 shadow-xl overflow-hidden transition-all duration-300 flex flex-col h-full hover:bg-[#111115] hover:border-white/20">
                                     <div className="bg-[#050505] border border-white/5 p-6 rounded-[1.5rem] relative overflow-hidden transition-all duration-700 flex-1">

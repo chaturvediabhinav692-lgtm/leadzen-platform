@@ -19,7 +19,7 @@ export default function AdminClientsPage() {
                 {/* Header */}
                 <div className="flex flex-col gap-1">
                     <h1 className="text-3xl font-bold text-white tracking-tight">Client Overview</h1>
-                    <p className="text-gray-500">Manage all coaching centers enrolled in the platform.</p>
+                    <p className="text-gray-500">Manage all business centers enrolled in the platform.</p>
                 </div>
 
                 {/* Stats */}
@@ -74,8 +74,8 @@ export default function AdminClientsPage() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${client.status === 'Active' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
-                                                    client.status === 'Trial' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
-                                                        'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                                                client.status === 'Trial' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                                                    'bg-rose-500/10 text-rose-400 border-rose-500/20'
                                                 }`}>
                                                 {client.status}
                                             </span>

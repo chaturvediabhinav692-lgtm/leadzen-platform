@@ -12,7 +12,7 @@ export default function Navbar() {
             className="fixed top-0 w-full z-50 backdrop-blur-xl bg-black/40 border-b border-white/10"
         >
             <div className="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
-                <Link href={isProductPage ? "/product/leadflow" : "/euonex"} className="flex items-center gap-2 group cursor-pointer">
+                <Link href={isProductPage ? "/product/leadzen" : "/euonex"} className="flex items-center gap-2 group cursor-pointer">
                     {/* Logo Icon */}
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-500 flex items-center justify-center shadow-lg logo-glow transition-transform group-hover:scale-105">
                         <span className="text-white font-semibold text-sm">

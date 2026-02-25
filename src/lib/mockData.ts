@@ -1,6 +1,7 @@
 
-export type CourseInterest = 'JEE' | 'NEET' | 'UPSC' | 'SSC' | 'Commerce';
-export type ClientStatus = 'new' | 'hot' | 'warm' | 'cold' | 'assigned' | 'converted' | 'snoozed' | 'rejected';
+export type ClientCategory = '2BHK Flat' | '3BHK Luxury' | 'Penthouse' | 'Villa' | 'Commercial Plot';
+export type CourseInterest = ClientCategory;
+export type ClientStatus = 'new' | 'hot' | 'warm' | 'cold' | 'contacted' | 'interested' | 'assigned' | 'converted' | 'snoozed' | 'rejected';
 export type InterestLevel = 'HOT' | 'WARM' | 'COLD';
 export type Timeline = 'Immediate' | '1-3 Months' | 'Exploring';
 export type LeadSource = 'WhatsApp' | 'Call';
@@ -29,7 +30,8 @@ export interface Client {
   timeline: Timeline;
   location: string;
   source: LeadSource;
-  status: ClientStatus; // "hot" | "warm" | "cold" | etc.
+  status: ClientStatus;
+  category: string;
   stage: LeadStage; // "new" | "active" | "converted" | "snoozed"
   lastActivityAt: number; // timestamp
   assigned: boolean;
@@ -174,7 +176,8 @@ const generateClients = (count: number): Client[] => {
       timeline,
       location,
       source,
-      status, // Mapping to interestLevel conceptually, but keeping original for now
+      category: course,
+      status,
       stage,
       lastActivityAt,
       assigned: broker !== null,

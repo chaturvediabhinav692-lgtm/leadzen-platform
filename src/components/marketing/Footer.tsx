@@ -26,7 +26,7 @@ export default function Footer() {
                         <h4 className="text-white font-bold mb-6">Product</h4>
                         <ul className="space-y-4 text-slate-500 text-sm font-medium">
                             <li><Link href="/euonex/products" className="hover:text-white transition-colors">Products</Link></li>
-                            <li><Link href="/euonex/products/leadflow" className="hover:text-white transition-colors">Leadflow</Link></li>
+                            <li><Link href="/euonex/products/leadzen" className="hover:text-white transition-colors">Leadzen</Link></li>
                             <li><Link href="#" className="hover:text-white transition-colors">Documentation</Link></li>
                         </ul>
                     </div>

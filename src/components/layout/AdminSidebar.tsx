@@ -12,5 +12,5 @@ const navItems = [
 ];
 
 export default function AdminSidebar() {
-    return <SidebarShell navItems={navItems} roleLabel="Admin User" roleEmail="admin@coaching.com" roleBadge="AD" />;
+    return <SidebarShell navItems={navItems} roleLabel="Admin User" roleEmail="admin@euonex.io" roleBadge="AD" />;
 }

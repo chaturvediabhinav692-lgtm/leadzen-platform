@@ -21,7 +21,7 @@ interface StoreContextType {
         profession: string,
         businessName: string,
         city?: string,
-        role: string,
+        role: 'admin' | 'owner' | 'broker',
         status: string,
         plan?: "starter" | "growth",
         subscriptionStart?: string,
@@ -86,21 +86,21 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
             subscriptionEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
         },
         {
-            id: 'test-coaching',
-            name: 'Test Coaching',
-            email: 'test-coaching@euonex.io',
+            id: 'test-owner',
+            name: 'Test Owner',
+            email: 'test-owner@euonex.io',
             phone: '555-1111',
             profession: 'Business Expert',
             businessName: 'Professional Academy',
             city: 'Dubai',
-            role: 'coaching',
+            role: 'owner',
             status: 'pending',
             plan: 'growth'
         },
         {
-            id: 'test-broker',
-            name: 'Test Broker',
-            email: 'test-broker@euonex.io',
+            id: 'test-professional',
+            name: 'Test Professional',
+            email: 'test-professional@euonex.io',
             phone: '555-2222',
             profession: 'Service Provider',
             businessName: 'Service Agency',
@@ -116,8 +116,8 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         const profession = userData.profession?.toLowerCase() || '';
         let role = 'broker'; // default
 
-        if (profession.includes('coach')) {
-            role = 'coaching';
+        if (profession.includes('coach') || profession.includes('owner')) {
+            role = 'owner';
         } else if (profession.includes('real estate')) {
             role = 'broker';
         }

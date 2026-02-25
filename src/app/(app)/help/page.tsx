@@ -38,7 +38,7 @@ export default function HelpPage() {
         // Save to localStorage
         saveStoredTicket({
             userId: 'current-user',
-            userName: 'Coaching Owner',
+            userName: 'Business Owner',
             issueType: issueType as any,
             priority: priority as any,
             description,

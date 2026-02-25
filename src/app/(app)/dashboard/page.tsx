@@ -1,12 +1,12 @@
 'use client';
 
-import CoachingLayout from '@/layouts/CoachingLayout';
-import BusinessMetrics from '@/components/BusinessMetrics'; // Keep global for now or move? Plan didn't specifying moving this one, but it's "Business Metrics".
-import HotLeadsPanel from '@/components/coaching/HotLeadsPanel';
-import LeadQualityBreakdown from '@/components/coaching/LeadQualityBreakdown';
-import RecentConversations from '@/components/coaching/RecentConversations';
-import BrokerPerformanceTable from '@/components/coaching/BrokerPerformanceTable';
-import MissedOpportunities from '@/components/coaching/MissedOpportunities';
+import BusinessLayout from '@/layouts/BusinessLayout';
+import BusinessMetrics from '@/components/BusinessMetrics';
+import HotLeadsPanel from '@/components/business/HotLeadsPanel';
+import LeadQualityBreakdown from '@/components/business/LeadQualityBreakdown';
+import RecentConversations from '@/components/business/RecentConversations';
+import ProfessionalPerformanceTable from '@/components/business/ProfessionalPerformanceTable';
+import MissedOpportunities from '@/components/business/MissedOpportunities';
 import RouteGuard from '@/components/layout/RouteGuard';
 import WorkloadChart from '@/components/analytics/WorkloadChart';
 import ActionLoadPanel from '@/components/analytics/ActionLoadPanel';
@@ -17,9 +17,9 @@ export default function DashboardPage() {
 
     return (
         <RouteGuard>
-            <CoachingLayout
-                title="Coaching Command Center"
-                subtitle="Real-time visibility into your admission pipeline."
+            <BusinessLayout
+                title="Leadzen Command Center"
+                subtitle="Real-time visibility into your operational pipeline."
             >
                 {/* 2. Business Metrics (Top Row) */}
                 <BusinessMetrics />
@@ -83,10 +83,10 @@ export default function DashboardPage() {
 
                     {/* Right Column: Performance */}
                     <div className="xl:col-span-1 space-y-8">
-                        <BrokerPerformanceTable />
+                        <ProfessionalPerformanceTable />
                     </div>
                 </div>
-            </CoachingLayout>
+            </BusinessLayout>
         </RouteGuard>
     );
 }

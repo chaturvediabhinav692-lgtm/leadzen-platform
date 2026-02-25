@@ -1,12 +1,12 @@
 export const setRole = (role: string) => {
     if (typeof window !== 'undefined') {
-        localStorage.setItem("leadflow_role", role);
+        localStorage.setItem("leadzen_role", role);
     }
 };
 
-export const getRole = () => {
+export const getRole = (): string | null => {
     if (typeof window !== 'undefined') {
-        return localStorage.getItem("leadflow_role");
+        return localStorage.getItem("leadzen_role");
     }
     return null;
 };

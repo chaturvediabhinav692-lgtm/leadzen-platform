@@ -1,21 +1,34 @@
 "use client";
 
+import { Suspense, useState, useEffect } from 'react';
 import { useStore } from "@/lib/store";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Building2, UserCircle2 } from "lucide-react";
 
 export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-[#0A0B0F] flex items-center justify-center text-white/50">Loading...</div>}>
+            <LoginForm />
+        </Suspense>
+    );
+}
+
+function LoginForm() {
     const { setRole } = useStore();
     const router = useRouter();
     const searchParams = useSearchParams();
     const product = searchParams.get('product') || 'Leadzen';
-
-    console.log("AUTH PAGE LOADED (ROOT/LOGIN)");
+    const isLeadzen = product.toLowerCase() === 'leadzen' || product.toLowerCase() === 'leadflow';
 
     const handleLogin = (role: 'owner' | 'broker') => {
         setRole(role);
-        window.location.href = '/euonex/products';
+        // Map to professional dashboard paths
+        if (role === 'owner') {
+            window.location.href = '/product/leadzen/dashboard/business';
+        } else {
+            window.location.href = '/product/leadzen/dashboard/professional';
+        }
     };
 
     return (

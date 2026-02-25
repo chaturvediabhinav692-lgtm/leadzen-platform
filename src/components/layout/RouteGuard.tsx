@@ -21,7 +21,7 @@ export default function RouteGuard({ children, allowedRoles }: RouteGuardProps) 
             const role = localStorage.getItem("role");
 
             if (!token || !userStr || !role) {
-                router.replace("/product/leadflow/auth");
+                router.replace("/product/leadzen/auth");
                 return;
             }
 
@@ -29,7 +29,7 @@ export default function RouteGuard({ children, allowedRoles }: RouteGuardProps) 
 
             // If account is not approved, block
             if (user.status !== 'approved' && user.role !== 'admin') {
-                router.replace("/product/leadflow/auth");
+                router.replace("/product/leadzen/auth");
                 return;
             }
 
@@ -37,9 +37,9 @@ export default function RouteGuard({ children, allowedRoles }: RouteGuardProps) 
             if (allowedRoles && !allowedRoles.includes(role)) {
                 // Redirect to correct dashboard based on actual role
                 if (role === 'admin') router.replace("/admin-dashboard");
-                else if (role === 'coaching') router.replace("/product/leadflow/dashboard/business");
-                else if (role === 'broker') router.replace("/product/leadflow/dashboard/professional");
-                else router.replace("/product/leadflow");
+                else if (role === 'owner') router.replace("/product/leadzen/dashboard/business");
+                else if (role === 'broker') router.replace("/product/leadzen/dashboard/professional");
+                else router.replace("/product/leadzen");
                 return;
             }
 

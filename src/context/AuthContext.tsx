@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             // Compatibility keys
             localStorage.setItem("auth_token", "mock_token");
             localStorage.setItem("user_data", JSON.stringify(authUser));
-            localStorage.setItem("leadflow_role", user.role);
+            localStorage.setItem("leadzen_role", user.role);
 
             if (user.role === 'admin') {
                 localStorage.setItem("is_admin", "true");
@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             name: 'Abhinav Chaturvedi',
             role: 'admin',
             status: 'approved',
-            businessName: 'LeadFlow',
+            businessName: 'Leadzen',
             token: 'google_token'
         };
         localStorage.setItem("token", "google_token");
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         localStorage.setItem("auth_token", "google_token");
         localStorage.setItem("user_data", JSON.stringify(mockUser));
-        localStorage.setItem("leadflow_role", "admin");
+        localStorage.setItem("leadzen_role", "admin");
         localStorage.setItem("is_admin", "true");
         setCurrentUser(mockUser);
     };
@@ -107,14 +107,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         // Legacy/Compat keys
         localStorage.removeItem("auth_token");
         localStorage.removeItem("user_data");
-        localStorage.removeItem("leadflow_role");
+        localStorage.removeItem("leadzen_role");
         localStorage.removeItem("is_admin");
 
         // Clear cookies just in case
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
         setCurrentUser(null);
-        router.replace("/product/leadflow");
+        router.replace("/product/leadzen");
     };
 
     return (
