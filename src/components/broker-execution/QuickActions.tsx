@@ -10,26 +10,32 @@ interface QuickActionsProps {
 
 export default function QuickActions({ onCallNext, onWhatsAppQueue, onLogNote }: QuickActionsProps) {
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-[#1f1f1f] px-4 py-3 z-50 shadow-2xl md:pl-64 backdrop-blur-sm bg-opacity-95">
-            <div className="max-w-5xl mx-auto flex gap-3 justify-center">
+        <div className="fixed bottom-0 left-0 right-0 bg-[#0b0c10]/95 border-t border-white/5 px-6 py-4 z-50 backdrop-blur-xl md:pl-72 font-body">
+            <div className="max-w-4xl mx-auto flex gap-4">
                 <button
                     onClick={onCallNext}
-                    className="flex-1 max-w-xs bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-indigo-900/50"
+                    className="flex-1 max-w-sm bg-accent text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 active:scale-[0.98] transition-all shadow-lg shadow-accent/25 hover:opacity-90"
                 >
-                    <Phone size={18} /> Call Next Lead
+                    <div className="p-1.5 bg-white/20 rounded-lg">
+                        <Phone size={18} className="fill-white" />
+                    </div>
+                    <span>Call Next Priority</span>
                 </button>
+
                 <button
                     onClick={onWhatsAppQueue}
-                    className="flex-1 max-w-xs bg-[#1f1f1f] hover:bg-[#262626] text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform border border-[#262626]"
+                    className="flex-1 max-w-sm bg-white/5 hover:bg-white/10 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 active:scale-[0.98] transition-all border border-white/10"
                 >
-                    <MessageCircle size={18} /> WhatsApp Queue
+                    <MessageCircle size={20} className="text-emerald-400" />
+                    <span>WhatsApp Queue</span>
                 </button>
+
                 <button
                     onClick={onLogNote}
-                    className="w-12 bg-[#1f1f1f] hover:bg-[#262626] text-slate-400 hover:text-white py-3 rounded-lg font-bold flex items-center justify-center active:scale-95 transition-transform border border-[#262626]"
+                    className="w-14 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white py-4 rounded-2xl font-bold flex items-center justify-center active:scale-[0.98] transition-all border border-white/10"
                     title="Log Note"
                 >
-                    <FileText size={18} />
+                    <FileText size={20} />
                 </button>
             </div>
         </div>

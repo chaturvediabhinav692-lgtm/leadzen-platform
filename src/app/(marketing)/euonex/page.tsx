@@ -98,11 +98,11 @@ export default function EuonexHomePage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         <div className="space-y-4">
                             <h3 className="text-xs font-black uppercase text-purple-500 tracking-widest">General Inquiry</h3>
-                            <p className="text-white text-2xl font-bold italic">hello@euonex.io</p>
+                            <p className="text-white text-2xl font-bold italic">euonex@gmail.com</p>
                         </div>
                         <div className="space-y-4">
                             <h3 className="text-xs font-black uppercase text-purple-500 tracking-widest">Support</h3>
-                            <p className="text-white text-2xl font-bold italic">support@euonex.io</p>
+                            <p className="text-white text-2xl font-bold italic">euonex@gmail.com</p>
                         </div>
                         <div className="space-y-4">
                             <h3 className="text-xs font-black uppercase text-purple-500 tracking-widest">Global HQ</h3>

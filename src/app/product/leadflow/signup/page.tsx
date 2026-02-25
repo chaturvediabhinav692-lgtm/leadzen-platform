@@ -34,9 +34,15 @@ export default function SignupPage() {
                 </Link>
             </div>
 
-            <div className="space-y-2 mb-8 text-center">
-                <h1 className="text-3xl font-black tracking-tighter italic uppercase">Create Account</h1>
-                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">Register Leadzen Access</p>
+            <div className="space-y-4 mb-10 text-center flex flex-col items-center group">
+                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-500 flex items-center justify-center shadow-lg logo-glow transition-transform group-hover:scale-105">
+                    <span className="text-white font-black text-xl tracking-widest">LZ</span>
+                    <div className="absolute inset-0 rounded-2xl border border-purple-400/30 blur-[2px]"></div>
+                </div>
+                <div className="flex flex-col items-center">
+                    <h1 className="text-4xl font-heading font-black tracking-tighter italic uppercase text-white">Platform Access</h1>
+                    <p className="text-purple-400 font-body text-[10px] font-black uppercase tracking-[0.3em] mt-1">Global Infrastructure by Euonex</p>
+                </div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -157,6 +163,18 @@ export default function SignupPage() {
             <div className="mt-8 flex items-center justify-center gap-2 text-slate-600">
                 <ShieldCheck className="w-4 h-4" />
                 <span className="text-[9px] font-black uppercase tracking-widest">Secured by Euonex Infrastructure</span>
+            </div>
+
+            <div className="mt-8 flex justify-center pb-2">
+                <a
+                    href="/product/leadflow"
+                    className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-white transition-all"
+                >
+                    <span className="transform group-hover:-translate-x-1 transition-transform duration-200">
+                        ←
+                    </span>
+                    Back to Product
+                </a>
             </div>
         </AuthLayout>
     );

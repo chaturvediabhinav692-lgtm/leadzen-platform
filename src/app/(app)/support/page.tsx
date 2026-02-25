@@ -19,9 +19,9 @@ export default function SupportPage() {
                             <Mail size={32} />
                         </div>
                         <h3 className="font-bold text-lg text-slate-900 mb-1">Email Support</h3>
-                        <p className="text-sm text-slate-500 mb-6">support@leadzen.com</p>
+                        <p className="text-sm text-slate-500 mb-6">euonex@gmail.com</p>
                         <a
-                            href="mailto:support@leadzen.com"
+                            href="mailto:euonex@gmail.com"
                             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold w-full transition-colors"
                         >
                             Send Email

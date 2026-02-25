@@ -33,24 +33,24 @@ export default function SubscriptionStatus() {
     return (
         <div className="flex flex-wrap gap-4 items-center">
             {/* Plan Card */}
-            <div className="bg-white border border-slate-200 rounded-2xl px-5 py-3 flex items-center gap-4 shadow-sm min-w-[200px]">
-                <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
+            <div className="bg-[#111217] border border-white/5 rounded-2xl px-5 py-3 flex items-center gap-4 shadow-sm min-w-[200px]">
+                <div className="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400">
                     <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Current Plan</p>
-                    <p className="font-bold text-slate-900 capitalize">{user.plan || 'Starter'}</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Current Plan</p>
+                    <p className="font-bold text-white capitalize">{user.plan || 'Starter'}</p>
                 </div>
             </div>
 
             {/* Expiry Card */}
-            <div className="bg-white border border-slate-200 rounded-2xl px-5 py-3 flex items-center gap-4 shadow-sm min-w-[240px]">
-                <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
+            <div className="bg-[#111217] border border-white/5 rounded-2xl px-5 py-3 flex items-center gap-4 shadow-sm min-w-[240px]">
+                <div className="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400">
                     <Clock className="w-5 h-5" />
                 </div>
                 <div className="flex-1">
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Expires On</p>
-                    <p className="font-bold text-slate-900">
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Expires On</p>
+                    <p className="font-bold text-white">
                         {subscriptionEnd ? formatDate(subscriptionEnd) : 'N/A'}
                     </p>
                 </div>
@@ -67,8 +67,8 @@ export default function SubscriptionStatus() {
                             <AlertTriangle className="w-10 h-10" />
                         </div>
                         <div className="space-y-2">
-                            <h2 className="text-2xl font-black text-slate-900 tracking-tight italic uppercase">Subscription Expired</h2>
-                            <p className="text-slate-500 font-medium">Your access to the Leadzen dashboard has been suspended. Renew your plan to continue managing your leads.</p>
+                            <h2 className="text-2xl font-black text-white tracking-tight italic uppercase">Subscription Expired</h2>
+                            <p className="text-slate-400 font-medium">Your access to the Euonex dashboard has been suspended. Renew your plan to continue managing your leads.</p>
                         </div>
                         <div className="pt-4 space-y-3">
                             <button className="w-full py-4 bg-purple-600 text-white rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-purple-500/20 hover:bg-purple-700 transition-all active:scale-95">

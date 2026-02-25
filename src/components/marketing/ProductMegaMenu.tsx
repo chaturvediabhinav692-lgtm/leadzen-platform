@@ -12,7 +12,7 @@ interface ProductMegaMenuProps {
 const products = [
     {
         id: "leadflow",
-        name: "Leadzen",
+        name: "Leadflow",
         description: "WhatsApp-first lead conversion system for high-performance teams",
         href: "/euonex/products",
         active: true,
@@ -65,7 +65,7 @@ export default function ProductMegaMenu({ isOpen, onClose }: ProductMegaMenuProp
                             <Sparkles size={10} /> Ecosystem Update
                         </p>
                         <p className="text-xs text-slate-500 font-bold leading-relaxed">
-                            Leadzen integration with advanced CRM modules is now live for enterprise partners.
+                            Leadflow integration with advanced CRM modules is now live for enterprise partners.
                         </p>
                     </div>
                 </div>

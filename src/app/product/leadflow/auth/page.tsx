@@ -53,6 +53,17 @@ export default function AuthPage() {
 
     return (
         <AuthLayout>
+            <div className="space-y-4 mb-10 text-center flex flex-col items-center group">
+                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-500 flex items-center justify-center shadow-lg logo-glow transition-transform group-hover:scale-105">
+                    <span className="text-white font-black text-xl tracking-widest">LZ</span>
+                    <div className="absolute inset-0 rounded-2xl border border-purple-400/30 blur-[2px]"></div>
+                </div>
+                <div className="flex flex-col items-center">
+                    <h1 className="text-4xl font-heading font-black tracking-tighter italic uppercase text-white">Sign In</h1>
+                    <p className="text-purple-400 font-body text-[10px] font-black uppercase tracking-[0.3em] mt-1">Leadzen Identity by Euonex</p>
+                </div>
+            </div>
+
             <form onSubmit={handleLogin} className="space-y-5">
                 {error && (
                     <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-[10px] font-black text-center uppercase tracking-widest">
@@ -72,7 +83,7 @@ export default function AuthPage() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 type="email"
                                 required
-                                placeholder="id@euonex.io"
+                                placeholder="id@leadzen.io"
                                 className="w-full p-4 pl-12 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-purple-500/50 focus:bg-white/[0.05] outline-none transition-all text-sm font-medium text-white"
                             />
                         </div>
@@ -117,6 +128,18 @@ export default function AuthPage() {
                     <img src="/google.svg" className="w-4 h-4" alt="Google" />
                     Continue with Google
                 </button>
+
+                <div className="mt-8 flex justify-center">
+                    <a
+                        href="/product/leadflow"
+                        className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-white transition-all"
+                    >
+                        <span className="transform group-hover:-translate-x-1 transition-transform duration-200">
+                            ←
+                        </span>
+                        Back to Product
+                    </a>
+                </div>
             </form>
         </AuthLayout>
     );

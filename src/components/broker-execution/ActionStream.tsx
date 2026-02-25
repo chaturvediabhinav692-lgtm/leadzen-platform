@@ -33,15 +33,16 @@ export default function ActionStream({ clients, onMarkDone, onSnooze }: ActionSt
     // Helper for time badge
     const getTimeBadge = (timestamp: number) => {
         const mins = Math.floor((Date.now() - timestamp) / 60000);
-        if (mins < 5) return { text: 'Active Now', color: 'text-green-600', dot: 'bg-green-500' };
-        if (mins < 15) return { text: `${mins}m ago`, color: 'text-slate-400', dot: 'bg-slate-300' };
-        if (mins < 30) return { text: 'Waiting', color: 'text-yellow-600', dot: 'bg-yellow-500' };
-        return { text: 'Delayed', color: 'text-red-500', dot: 'bg-red-500' };
+        if (mins < 5) return { text: 'Active', color: 'text-emerald-400', dot: 'bg-emerald-500' };
+        if (mins < 15) return { text: `${mins}m ago`, color: 'text-gray-500', dot: 'bg-gray-700' };
+        if (mins < 30) return { text: 'Waiting', color: 'text-amber-400', dot: 'bg-amber-500' };
+        return { text: 'Delayed', color: 'text-rose-400', dot: 'bg-rose-500' };
     };
 
     const ClientRow = ({ client }: { client: Client }) => {
         const timeBadge = getTimeBadge(client.lastActivityAt);
         const isHot = client.status === 'hot';
+        const isWarm = client.status === 'warm';
 
         const handleWhatsApp = () => {
             const message = encodeURIComponent(client.lastMessage || "Hi, checking in.");
@@ -53,43 +54,64 @@ export default function ActionStream({ clients, onMarkDone, onSnooze }: ActionSt
         };
 
         return (
-            <div className={`p-4 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4 group border-l-4 ${isHot ? 'border-red-500 bg-red-50/10' : client.status === 'warm' ? 'border-yellow-400' : 'border-slate-300'}`}>
-                <div className="flex items-center gap-4 min-w-0 pr-4">
+            <div className={`p-5 hover:bg-white/[0.02] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4 group border-l-2 transition-all ${isHot ? 'border-rose-500 bg-rose-500/[0.02]' : isWarm ? 'border-amber-500 bg-amber-500/[0.02]' : 'border-white/5'}`}>
+                <div className="flex items-center gap-5 min-w-0 pr-4">
                     {/* Urgency Icon */}
                     <div className="flex-shrink-0">
-                        {isHot ? <div className="p-2 bg-red-100 text-red-600 rounded-full animate-pulse"><Flame size={18} /></div> :
-                            client.status === 'warm' ? <div className="p-2 bg-yellow-100 text-yellow-600 rounded-full"><AlertTriangle size={18} /></div> :
-                                <div className="p-2 bg-slate-100 text-slate-400 rounded-full"><Clock size={18} /></div>}
+                        {isHot ? (
+                            <div className="p-2.5 bg-rose-500/10 text-rose-500 rounded-xl border border-rose-500/20">
+                                <Flame size={18} className="animate-pulse" />
+                            </div>
+                        ) : isWarm ? (
+                            <div className="p-2.5 bg-amber-500/10 text-amber-500 rounded-xl border border-amber-500/20">
+                                <AlertTriangle size={18} />
+                            </div>
+                        ) : (
+                            <div className="p-2.5 bg-white/5 text-gray-500 rounded-xl border border-white/10">
+                                <Clock size={18} />
+                            </div>
+                        )}
                     </div>
 
                     <div className="min-w-0">
-                        <div className="flex items-center gap-2 mb-0.5">
-                            <span className="font-bold text-slate-900 truncate text-base">{client.name}</span>
-                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${isHot ? 'bg-red-100 text-red-700' : 'bg-slate-100 text-slate-500'}`}>
+                        <div className="flex items-center gap-3 mb-1">
+                            <span className="font-bold text-white truncate text-base">{client.name}</span>
+                            <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ${isHot ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' : isWarm ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-white/5 text-gray-500 border-white/10'}`}>
                                 {client.status}
                             </span>
                         </div>
-                        <p className="text-sm text-slate-500 truncate max-w-[300px] md:max-w-md">
-                            <span className="font-medium text-slate-700">{client.source}:</span> "{client.lastMessage}"
+                        <p className="text-xs text-gray-400 truncate max-w-[300px] md:max-w-md">
+                            <span className="font-semibold text-gray-300">{client.source}:</span> "{client.lastMessage}"
                         </p>
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-                    <div className={`flex items-center gap-1.5 text-xs font-medium ${timeBadge.color} bg-white px-2 py-1 rounded border border-slate-100 shadow-sm`} suppressHydrationWarning>
-                        <div className={`w-1.5 h-1.5 rounded-full ${timeBadge.dot} ${timeBadge.text === 'Active Now' ? 'animate-pulse' : ''}`} />
+                <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
+                    <div className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest ${timeBadge.color} bg-black/20 px-3 py-1.5 rounded-lg border border-white/5 shadow-sm`} suppressHydrationWarning>
+                        <div className={`w-1.5 h-1.5 rounded-full ${timeBadge.dot} ${timeBadge.text === 'Active' ? 'animate-pulse' : ''}`} />
                         {timeBadge.text}
                     </div>
 
-                    <div className="flex items-center gap-1 opacity-100">
-                        <button onClick={handleWhatsApp} className={`p-3 rounded-xl transition-all shadow-sm ${isHot ? 'bg-green-600 text-white hover:bg-green-700 shadow-green-200' : 'bg-green-50 text-green-600'}`} title="WhatsApp Lead">
-                            <MessageCircle size={isHot ? 20 : 18} />
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={handleWhatsApp}
+                            className={`p-2.5 rounded-xl border transition-all ${isHot ? 'bg-emerald-500 text-white border-emerald-400 hover:opacity-90' : 'bg-white/5 text-emerald-400 border-white/10 hover:bg-emerald-500/10'}`}
+                            title="WhatsApp"
+                        >
+                            <MessageCircle size={18} className={isHot ? 'fill-white' : ''} />
                         </button>
-                        <button onClick={handleCall} className={`p-3 rounded-xl transition-all shadow-sm ${isHot ? 'bg-slate-800 text-white hover:bg-slate-900' : 'bg-slate-50 text-slate-600'}`} title="Call Lead">
-                            <Phone size={isHot ? 20 : 18} />
+                        <button
+                            onClick={handleCall}
+                            className="p-2.5 bg-white/5 text-white border border-white/10 rounded-xl hover:bg-white/10 transition-all"
+                            title="Call"
+                        >
+                            <Phone size={18} />
                         </button>
-                        {/* Done button */}
-                        <button onClick={() => onMarkDone(client.id)} className="p-3 text-slate-300 hover:text-green-600 transition-colors" title="Mark Converted">
+                        <button
+                            onClick={() => onMarkDone(client.id)}
+                            className="p-2.5 text-gray-600 hover:text-emerald-400 transition-colors"
+                            title="Complete"
+                        >
                             <Check size={18} />
                         </button>
                     </div>
@@ -99,17 +121,17 @@ export default function ActionStream({ clients, onMarkDone, onSnooze }: ActionSt
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-8 font-body">
             {/* HOT SECTION */}
             {groups.hot.length > 0 && (
-                <div className="bg-white rounded-xl shadow-lg shadow-red-100/50 border border-red-100 overflow-hidden">
-                    <div className="bg-red-50/50 px-4 py-2 border-b border-red-100 flex justify-between items-center">
-                        <h3 className="font-bold text-red-700 text-xs uppercase tracking-widest flex items-center gap-2">
-                            <Flame size={14} /> Urgent Priority
+                <div className="bg-[#111217] rounded-2xl border border-white/5 overflow-hidden shadow-2xl shadow-rose-500/5">
+                    <div className="bg-rose-500/[0.03] px-5 py-3 border-b border-white/5 flex justify-between items-center">
+                        <h3 className="font-bold text-rose-400 text-[10px] uppercase tracking-[0.2em] flex items-center gap-2.5">
+                            <Flame size={14} className="animate-pulse" /> Urgent Priority
                         </h3>
-                        <span className="bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded-full">{groups.hot.length}</span>
+                        <span className="bg-rose-500/20 text-rose-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-rose-500/20">{groups.hot.length}</span>
                     </div>
-                    <div className="divide-y divide-red-50">
+                    <div className="divide-y divide-white/5">
                         {groups.hot.map(c => <ClientRow key={c.id} client={c} />)}
                     </div>
                 </div>
@@ -117,14 +139,14 @@ export default function ActionStream({ clients, onMarkDone, onSnooze }: ActionSt
 
             {/* WARM SECTION */}
             {groups.warm.length > 0 && (
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden opacity-95">
-                    <div className="bg-yellow-50/50 px-4 py-2 border-b border-yellow-100 flex justify-between items-center">
-                        <h3 className="font-bold text-yellow-700 text-xs uppercase tracking-widest flex items-center gap-2">
-                            Follow Up
+                <div className="bg-[#111217] rounded-2xl border border-white/5 overflow-hidden shadow-xl shadow-amber-500/5">
+                    <div className="bg-amber-500/[0.03] px-5 py-3 border-b border-white/5 flex justify-between items-center">
+                        <h3 className="font-bold text-amber-400 text-[10px] uppercase tracking-[0.2em] flex items-center gap-2.5">
+                            <Clock size={14} /> Active Follow-Up
                         </h3>
-                        <span className="bg-yellow-100 text-yellow-700 text-[10px] font-bold px-2 py-0.5 rounded-full">{groups.warm.length}</span>
+                        <span className="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/20">{groups.warm.length}</span>
                     </div>
-                    <div className="divide-y divide-slate-100">
+                    <div className="divide-y divide-white/5">
                         {groups.warm.map(c => <ClientRow key={c.id} client={c} />)}
                     </div>
                 </div>
@@ -132,11 +154,14 @@ export default function ActionStream({ clients, onMarkDone, onSnooze }: ActionSt
 
             {/* COLD SECTION */}
             {groups.cold.length > 0 && (
-                <div className="bg-slate-50 rounded-xl border border-slate-200 overflow-hidden opacity-70 hover:opacity-100 transition-opacity">
-                    <div className="px-4 py-2 border-b border-slate-200">
-                        <h3 className="font-bold text-slate-500 text-xs uppercase tracking-widest">Low Priority</h3>
+                <div className="bg-[#111217] rounded-2xl border border-white/5 overflow-hidden opacity-60 hover:opacity-100 transition-all group">
+                    <div className="bg-black/20 px-5 py-3 border-b border-white/5 flex justify-between items-center">
+                        <h3 className="font-bold text-gray-500 text-[10px] uppercase tracking-[0.2em] group-hover:text-gray-400 transition-colors">
+                            General Queue
+                        </h3>
+                        <span className="bg-white/5 text-gray-500 text-[10px] font-bold px-2 py-0.5 rounded-full border border-white/10 group-hover:text-gray-400 group-hover:bg-white/10 transition-all">{groups.cold.length}</span>
                     </div>
-                    <div className="divide-y divide-slate-200">
+                    <div className="divide-y divide-white/5">
                         {groups.cold.map(c => <ClientRow key={c.id} client={c} />)}
                     </div>
                 </div>

@@ -10,31 +10,42 @@ interface SmartInsightsProps {
 
 export default function SmartInsights({ delayedCount, opportunityCount, replyRate }: SmartInsightsProps) {
     return (
-        <div className="space-y-3">
-            <div className={`p-3 rounded shadow-sm flex items-start gap-3 border-l-4 transition-colors ${delayedCount > 0 ? 'bg-red-50 border-red-400' : 'bg-slate-50 border-slate-200 opacity-60'}`}>
-                <Clock className={`${delayedCount > 0 ? 'text-red-500' : 'text-slate-400'} flex-shrink-0 mt-0.5`} size={16} />
-                <div>
-                    <p className={`text-xs font-bold uppercase ${delayedCount > 0 ? 'text-red-800' : 'text-slate-500'}`}>Response Time Warning</p>
-                    <p className={`text-sm font-medium ${delayedCount > 0 ? 'text-red-700' : 'text-slate-600'}`}>
-                        {delayedCount} HOT leads waiting &gt; 15 min
-                    </p>
+        <div className="space-y-4 font-body">
+            <div className={`p-4 rounded-xl border transition-all ${delayedCount > 0 ? 'bg-rose-500/[0.03] border-rose-500/20 shadow-lg shadow-rose-500/5' : 'bg-[#111217] border-white/5 opacity-60'}`}>
+                <div className="flex items-start gap-3">
+                    <div className={`p-2 rounded-lg ${delayedCount > 0 ? 'bg-rose-500/10 text-rose-500' : 'bg-white/5 text-gray-500'}`}>
+                        <Clock size={16} />
+                    </div>
+                    <div>
+                        <p className={`text-[10px] font-bold uppercase tracking-widest ${delayedCount > 0 ? 'text-rose-400' : 'text-gray-500'}`}>Response Warning</p>
+                        <p className={`text-sm font-semibold mt-1 ${delayedCount > 0 ? 'text-white' : 'text-gray-400'}`}>
+                            {delayedCount} Hot leads waiting
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <div className={`p-3 rounded shadow-sm flex items-start gap-3 border-l-4 transition-colors ${opportunityCount > 0 ? 'bg-indigo-50 border-indigo-400' : 'bg-slate-50 border-slate-200 opacity-60'}`}>
-                <AlertTriangle className={`${opportunityCount > 0 ? 'text-indigo-500' : 'text-slate-400'} flex-shrink-0 mt-0.5`} size={16} />
-                <div>
-                    <p className={`text-xs font-bold uppercase ${opportunityCount > 0 ? 'text-indigo-800' : 'text-slate-500'}`}>Opportunity</p>
-                    <p className={`text-sm font-medium ${opportunityCount > 0 ? 'text-indigo-700' : 'text-slate-600'}`}>
-                        {opportunityCount} WARM leads active now
-                    </p>
+            <div className={`p-4 rounded-xl border transition-all ${opportunityCount > 0 ? 'bg-accent/[0.03] border-accent/20 shadow-lg shadow-accent/5' : 'bg-[#111217] border-white/5 opacity-60'}`}>
+                <div className="flex items-start gap-3">
+                    <div className={`p-2 rounded-lg ${opportunityCount > 0 ? 'bg-accent/10 text-accent' : 'bg-white/5 text-gray-500'}`}>
+                        <AlertTriangle size={16} />
+                    </div>
+                    <div>
+                        <p className={`text-[10px] font-bold uppercase tracking-widest ${opportunityCount > 0 ? 'text-accent' : 'text-gray-500'}`}>Insight</p>
+                        <p className={`text-sm font-semibold mt-1 ${opportunityCount > 0 ? 'text-white' : 'text-gray-400'}`}>
+                            {opportunityCount} Warm leads active
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 p-3 rounded text-center">
-                <p className="text-xs text-slate-500 uppercase font-bold tracking-wide mb-1">Reply Rate</p>
-                <div className="flex items-center justify-center gap-2 text-slate-800 font-bold">
-                    {replyRate}% {replyRate < 45 ? <TrendingDown size={14} className="text-red-500" /> : <TrendingDown size={14} className="text-green-500 rotate-180" />}
+            <div className="bg-[#111217] border border-white/5 p-5 rounded-xl text-center group hover:border-white/10 transition-all">
+                <p className="text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em] mb-3">Response Velocity</p>
+                <div className="flex items-center justify-center gap-3">
+                    <span className="text-2xl font-bold text-white tracking-tight">{replyRate}%</span>
+                    <div className={`p-1.5 rounded-lg ${replyRate < 45 ? 'bg-rose-500/10 text-rose-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
+                        {replyRate < 45 ? <TrendingDown size={14} /> : <TrendingDown size={14} className="rotate-180" />}
+                    </div>
                 </div>
             </div>
         </div>

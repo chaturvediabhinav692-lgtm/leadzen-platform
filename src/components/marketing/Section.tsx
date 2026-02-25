@@ -13,8 +13,8 @@ interface SectionProps {
 
 export default function Section({ children, title, subtitle, className = "", id }: SectionProps) {
     return (
-        <section id={id} className={`py-24 px-6 ${className}`}>
-            <div className="max-w-7xl mx-auto">
+        <section id={id} className={`py-24 md:py-32 px-6 ${className}`}>
+            <div className="max-w-7xl mx-auto md:px-10">
                 {(title || subtitle) && (
                     <div className="mb-16">
                         {title && (
@@ -22,7 +22,7 @@ export default function Section({ children, title, subtitle, className = "", id 
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="text-3xl md:text-5xl font-bold text-white mb-4"
+                                className="font-heading text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight"
                             >
                                 {title}
                             </motion.h2>
@@ -33,7 +33,7 @@ export default function Section({ children, title, subtitle, className = "", id 
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 }}
-                                className="text-lg text-gray-400 max-w-2xl"
+                                className="font-body text-lg text-gray-400 max-w-2xl leading-relaxed"
                             >
                                 {subtitle}
                             </motion.p>

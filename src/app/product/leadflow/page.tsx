@@ -15,64 +15,69 @@ export default function LeadflowLanding() {
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full" />
 
             {/* Header Bar */}
-            <div className="relative z-20 w-full flex justify-between items-center px-8 py-6 border-b border-white/10 backdrop-blur-md">
-                {/* LEFT: LOGO */}
-                <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-purple-500/10 border border-purple-500/20 rounded-lg flex items-center justify-center">
-                            <span className="text-xl font-black italic text-purple-500">LZ</span>
+            <header className="fixed top-0 w-full z-50 backdrop-blur-xl bg-black/40 border-b border-white/10">
+                <div className="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+                    {/* LEFT: LOGO */}
+                    <Link href="/product/leadflow" className="flex items-center gap-2 group cursor-pointer">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-500 flex items-center justify-center shadow-lg logo-glow transition-transform group-hover:scale-105">
+                            <span className="text-white font-semibold text-sm">LZ</span>
                         </div>
-                        <div className="text-white font-bold text-lg tracking-tight">
-                            Leadzen
+                        <div className="flex flex-col leading-tight">
+                            <span className="text-white font-semibold text-lg tracking-wide group-hover:text-white/90 transition-colors">
+                                Leadzen
+                            </span>
+                            <span className="text-[10px] text-gray-500 font-medium tracking-wide">
+                                by Euonex
+                            </span>
                         </div>
-                    </div>
+                    </Link>
 
-                    <div className="hidden md:flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-500">
-                        <a href="#plans" className="hover:text-white transition-colors cursor-pointer tracking-[0.2em]">Plans</a>
+                    {/* RIGHT: ACTIONS */}
+                    <div className="flex gap-4">
+                        <button
+                            onClick={() => router.push('/product/leadflow/auth')}
+                            className="px-5 py-2 rounded-full border border-white/20 text-white font-body font-medium hover:bg-white/10 transition active:scale-95 text-xs"
+                        >
+                            Login
+                        </button>
+
+                        <button
+                            onClick={() => router.push('/product/leadflow/signup')}
+                            className="px-6 py-2 bg-white text-black rounded-full font-body font-semibold hover:opacity-90 transition active:scale-95 text-xs shadow-lg shadow-white/5"
+                        >
+                            Create Account
+                        </button>
                     </div>
                 </div>
+            </header>
 
-                {/* RIGHT: ACTIONS */}
-                <div className="flex gap-4">
-                    <button
-                        onClick={() => router.push('/product/leadflow/auth')}
-                        className="px-6 py-2 border border-white/20 rounded-xl text-white font-bold text-xs uppercase tracking-widest hover:bg-white/5 transition-all active:scale-[0.98]"
-                    >
-                        Login
-                    </button>
+            <main className="pt-32 pb-24 relative z-10 flex flex-col items-center justify-center text-center px-6">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="mb-8"
+                >
+                    <div className="w-20 h-20 rounded-[1.5rem] bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-500 flex items-center justify-center text-white text-3xl shadow-lg logo-glow transition-transform hover:scale-105 mx-auto">
+                        LZ
+                    </div>
+                </motion.div>
 
-                    <button
-                        onClick={() => router.push('/product/leadflow/signup')}
-                        className="px-6 py-2 bg-white text-black rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-slate-200 transition-all active:scale-[0.98]"
-                    >
-                        Create Account
-                    </button>
-                </div>
-            </div>
-
-            <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pb-20">
-                <h1 className="text-5xl md:text-6xl font-bold text-center text-white mt-16 mb-6 tracking-tight">
-                    Leadzen
-                </h1>
-
-                <div className="mt-6 md:mt-10 space-y-4">
-                    <motion.p
-                        initial={{ opacity: 0, y: 10 }}
+                <div className="space-y-6">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-purple-500 text-sm mb-4 font-black uppercase tracking-[0.3em]"
+                        className="font-heading text-5xl md:text-7xl font-bold tracking-tight text-white leading-tight max-w-4xl drop-shadow-glow"
                     >
-                        Automation Engine for Service Businesses
-                    </motion.p>
+                        We Build Systems That <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400">Convert</span>
+                    </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-gray-400 max-w-2xl mx-auto mb-10 text-lg leading-relaxed"
+                        transition={{ delay: 0.1 }}
+                        className="font-body text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
                     >
-                        Leadzen is a specialized automation system built for professional service businesses.
-                        It centralizes lead capture, qualification, and follow-ups into a single workflow,
-                        enabling teams to respond faster, convert more prospects, and eliminate manual coordination.
+                        Automation-driven platforms engineered for speed, scalability, and measurable growth.
                     </motion.p>
                 </div>
 
@@ -145,168 +150,166 @@ export default function LeadflowLanding() {
                 </motion.div>
 
                 {/* Who Leadzen Is Built For */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="mt-24 max-w-5xl text-center"
-                >
-                    <h2 className="text-3xl font-black italic uppercase tracking-tighter mb-12 bg-gradient-to-r from-white to-white/40 bg-clip-text text-transparent">Who Leadzen Is Built For</h2>
+                <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto md:px-10">
+                    <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-16 tracking-tight text-center">Who It's Built For</h2>
 
-                    <div className="grid md:grid-cols-2 gap-8 text-left">
+                    <div className="grid md:grid-cols-2 gap-8">
                         {[
                             { title: "Service Businesses", desc: "Manage client inquiries, automate follow-ups, and track conversions across multiple team members and branches." },
                             { title: "Enterprise Teams", desc: "Track high-volume leads, manage professional pipelines, and ensure no high-intent prospect is missed." }
                         ].map((item, i) => (
-                            <div key={i} className="p-8 bg-white/[0.02] border border-white/5 rounded-3xl backdrop-blur-sm hover:border-purple-500/20 transition-all">
-                                <h3 className="text-xl font-black uppercase tracking-widest text-white mb-4">{item.title}</h3>
-                                <p className="text-gray-500 font-medium leading-relaxed">
+                            <div key={i} className="p-8 bg-card border border-white/10 rounded-2xl hover:border-white/20 transition-all group">
+                                <h3 className="font-heading text-xl font-bold text-white mb-4 group-hover:text-accent transition-colors">{item.title}</h3>
+                                <p className="font-body text-gray-400 leading-relaxed">
                                     {item.desc}
                                 </p>
                             </div>
                         ))}
                     </div>
-                </motion.div>
+                </section>
 
                 {/* Pricing Plans Section */}
-                <motion.section
-                    id="plans"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.7 }}
-                    className="mt-32 max-w-5xl w-full text-center"
-                >
-                    <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-4 bg-gradient-to-r from-white to-white/40 bg-clip-text text-transparent">Plans</h2>
-                    <p className="text-gray-500 font-medium mb-12">
-                        Choose a plan that fits your business growth.
+                <section id="plans" className="py-32 md:py-40 px-6 max-w-7xl mx-auto md:px-10 text-center">
+                    <h2 className="font-heading text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">Standardized Plans</h2>
+                    <p className="font-body text-gray-400 text-lg md:text-xl mb-20 max-w-2xl mx-auto leading-relaxed">
+                        Precision-engineered licensing for high-growth operations.
                     </p>
 
-                    <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                        {/* PLAN 1: Starter */}
-                        <div className="border border-white/5 bg-white/[0.02] rounded-[2.5rem] p-10 text-left hover:border-purple-500/30 transition-all backdrop-blur-xl flex flex-col h-full group">
-                            <h3 className="text-xl font-black uppercase tracking-widest text-white mb-2">Starter</h3>
-                            <div className="flex items-baseline gap-1 mb-6">
-                                <span className="text-5xl font-black text-white">$69</span>
-                                <span className="text-sm text-slate-500 font-bold uppercase tracking-widest">/month</span>
+                    <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto text-left items-stretch">
+                        {/* Starter Plan */}
+                        <div className="border border-white/10 bg-[#050507] rounded-[2.5rem] p-12 flex flex-col h-full hover:border-white/20 transition-all group">
+                            <div className="mb-8">
+                                <h3 className="font-heading text-4xl md:text-5xl font-bold text-white mb-2 tracking-tighter">$69<span className="text-xl text-gray-500 font-medium tracking-normal"> / month</span></h3>
+                                <p className="font-body text-gray-400 font-semibold uppercase tracking-[0.2em] text-[10px]">Automation Infrastructure</p>
                             </div>
 
-                            <ul className="space-y-4 text-gray-500 font-medium mb-10 flex-1">
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-purple-500" /> WhatsApp Automation</li>
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-purple-500" /> Lead Capture & Routing</li>
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-purple-500" /> Real-time Messaging</li>
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-purple-500" /> Dashboard Access</li>
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-purple-500" /> Basic Analytics</li>
+                            <ul className="font-body text-gray-400 space-y-5 mb-12 flex-1">
+                                <li className="flex items-center gap-4">
+                                    <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-500">
+                                        <CheckCircle2 size={18} />
+                                    </div>
+                                    <span className="text-sm font-medium">WhatsApp Bridge Engine</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-500">
+                                        <CheckCircle2 size={18} />
+                                    </div>
+                                    <span className="text-sm font-medium">Capture & Routing Layer</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-500">
+                                        <CheckCircle2 size={18} />
+                                    </div>
+                                    <span className="text-sm font-medium">Universal Command Center</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-500">
+                                        <CheckCircle2 size={18} />
+                                    </div>
+                                    <span className="text-sm font-medium">Activity Stream Logic</span>
+                                </li>
                             </ul>
 
                             <button
                                 onClick={() => router.push('/product/leadflow/signup')}
-                                className="w-full bg-white text-black py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all active:scale-[0.98] shadow-xl shadow-white/5"
+                                className="w-full px-8 py-5 rounded-2xl bg-white text-black font-body font-black text-xs uppercase tracking-[0.2em] transition-all hover:bg-slate-200 active:scale-[0.98] shadow-2xl shadow-white/5"
                             >
-                                Get Started
+                                Deploy Basic Instance
                             </button>
                         </div>
 
-                        {/* PLAN 2: Growth */}
-                        <div className="relative border border-purple-500/50 bg-gradient-to-b from-purple-900/10 to-transparent rounded-[2.5rem] p-10 text-left backdrop-blur-xl flex flex-col h-full overflow-hidden">
-                            <div className="absolute top-0 right-0 px-4 py-1.5 bg-purple-500 text-[10px] font-black uppercase tracking-[0.2em] text-white rounded-bl-2xl">
-                                Recommended
-                            </div>
-                            <h3 className="text-xl font-black uppercase tracking-widest text-white mb-2">Growth</h3>
-                            <div className="flex items-baseline gap-1 mb-6">
-                                <span className="text-5xl font-black text-white">$199</span>
-                                <span className="text-sm text-slate-500 font-bold uppercase tracking-widest">/month</span>
+                        {/* Growth Plan */}
+                        <div className="relative border border-accent/40 bg-[#050507] rounded-[2.5rem] p-12 flex flex-col h-full transition-all hover:border-accent shadow-2xl shadow-accent/5 md:scale-105 z-20">
+                            <div className="absolute top-6 right-8 px-4 py-1.5 bg-accent text-[10px] font-black uppercase tracking-[0.2em] text-white rounded-full">
+                                Recommended Plan
                             </div>
 
-                            <ul className="space-y-4 text-gray-400 font-medium mb-10 flex-1">
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Everything in Starter</li>
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Custom Website Dev</li>
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Website Management</li>
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Full Funnel Setup</li>
-                                <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Priority Support</li>
+                            <div className="mb-8">
+                                <h3 className="font-heading text-4xl md:text-5xl font-bold text-white mb-2 tracking-tighter">$199<span className="text-xl text-gray-500 font-medium tracking-normal"> / month</span></h3>
+                                <p className="font-body text-accent font-semibold uppercase tracking-[0.2em] text-[10px]">Enterprise Infrastructure</p>
+                            </div>
+
+                            <ul className="font-body text-gray-400 space-y-5 mb-12 flex-1">
+                                <li className="flex items-center gap-4">
+                                    <div className="p-1.5 rounded-lg bg-accent/20 text-accent">
+                                        <CheckCircle2 size={18} />
+                                    </div>
+                                    <span className="text-sm font-medium text-white">Full Funnel Automations</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <div className="p-1.5 rounded-lg bg-accent/20 text-accent">
+                                        <CheckCircle2 size={18} />
+                                    </div>
+                                    <span className="text-sm font-medium text-white">Custom Brand Portal</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <div className="p-1.5 rounded-lg bg-accent/20 text-accent">
+                                        <CheckCircle2 size={18} />
+                                    </div>
+                                    <span className="text-sm font-medium text-white">White-Glove Setup</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <div className="p-1.5 rounded-lg bg-accent/20 text-accent">
+                                        <CheckCircle2 size={18} />
+                                    </div>
+                                    <span className="text-sm font-medium text-white">24/7 Priority Ops</span>
+                                </li>
                             </ul>
 
                             <button
                                 onClick={() => router.push('/product/leadflow/signup')}
-                                className="w-full bg-purple-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-purple-500 transition-all active:scale-[0.98] shadow-2xl shadow-purple-500/20"
+                                className="w-full px-8 py-5 rounded-2xl bg-accent text-white font-body font-black text-xs uppercase tracking-[0.2em] transition-all hover:opacity-90 active:scale-[0.98] shadow-2xl shadow-accent/20"
                             >
-                                Choose Plan
+                                Deploy Full Enterprise
                             </button>
                         </div>
                     </div>
-                </motion.section>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 }}
-                    className="mt-24 max-w-5xl text-center"
-                >
-                    <h2 className="text-3xl font-black italic uppercase tracking-tighter mb-12 bg-gradient-to-r from-white to-white/40 bg-clip-text text-transparent">Why Leadzen</h2>
-
-                    <div className="grid md:grid-cols-3 gap-8 text-left">
-                        {[
-                            { title: "No Lead Leakage", desc: "Every lead is tracked, assigned, and followed up automatically — nothing falls through the cracks." },
-                            { title: "Faster Response Time", desc: "Engage leads instantly with automated workflows and real-time notifications." },
-                            { title: "Operational Clarity", desc: "Get full visibility into team performance, lead status, and conversion metrics." }
-                        ].map((item, i) => (
-                            <div key={i} className="space-y-4">
-                                <h3 className="text-lg font-black uppercase tracking-widest text-white border-l-2 border-purple-500 pl-4">{item.title}</h3>
-                                <p className="text-gray-500 text-sm font-medium leading-relaxed">
-                                    {item.desc}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </motion.div>
+                </section>
 
                 {/* Final CTA Section */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8 }}
-                    className="mt-32 w-full max-w-4xl p-12 bg-gradient-to-b from-white/[0.05] to-transparent border border-white/10 rounded-[3rem] text-center space-y-8 backdrop-blur-xl"
-                >
-                    <div className="space-y-4">
-                        <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter text-white">
+                <section className="py-24 md:py-32 px-6 relative overflow-hidden w-full">
+                    <div className="max-w-4xl mx-auto text-center relative z-10 space-y-8">
+                        <h2 className="font-heading text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
                             Start Managing Leads the Right Way
                         </h2>
-                        <p className="text-gray-500 text-lg font-medium max-w-2xl mx-auto">
+                        <p className="font-body text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
                             Apply for access and get your system activated within 24 hours.
                         </p>
-                    </div>
 
-                    <div className="flex flex-col md:flex-row justify-center gap-4 pt-4">
-                        <button
-                            onClick={() => router.push('/product/leadflow/signup')}
-                            className="px-10 py-4 bg-white text-black rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-white/5 hover:bg-slate-200 transition-all active:scale-[0.98]"
-                        >
-                            Create Account
-                        </button>
+                        <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+                            <button
+                                onClick={() => router.push('/product/leadflow/signup')}
+                                className="px-10 py-4 bg-white text-black font-body font-semibold rounded-full hover:opacity-90 transition shadow-xl shadow-white/5 active:scale-95"
+                            >
+                                Create Account
+                            </button>
 
-                        <button
-                            onClick={() => router.push('/product/leadflow/auth')}
-                            className="px-10 py-4 border border-white/10 bg-white/5 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white/10 transition-all active:scale-[0.98]"
-                        >
-                            Login
-                        </button>
+                            <button
+                                onClick={() => router.push('/product/leadflow/auth')}
+                                className="px-10 py-4 border border-white/20 text-white font-body font-medium rounded-full hover:bg-white/10 transition active:scale-95"
+                            >
+                                Login
+                            </button>
+                        </div>
                     </div>
-                </motion.div>
+                </section>
 
                 {/* Exit Link */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.9 }}
+                    className="pb-20"
                 >
                     <Link
                         href="/euonex/products"
-                        className="inline-flex items-center gap-2 text-[10px] text-slate-700 hover:text-white transition-colors uppercase font-black tracking-widest group"
+                        className="inline-flex items-center gap-2 text-xs font-body text-gray-500 hover:text-white transition-colors uppercase font-bold tracking-widest group"
                     >
                         <ArrowLeft className="w-3 h-3 transition-transform group-hover:-translate-x-1" />
                         Back to Products
                     </Link>
                 </motion.div>
-            </div>
+            </main>
         </div>
     );
 }

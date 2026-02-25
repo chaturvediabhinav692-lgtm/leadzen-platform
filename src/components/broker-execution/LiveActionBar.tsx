@@ -17,33 +17,37 @@ export default function LiveActionBar({
     attentionCount
 }: LiveActionBarProps) {
     return (
-        <div className="sticky top-0 z-40 bg-[#0f0f0f] text-white shadow-2xl border-b border-[#1f1f1f] backdrop-blur-md bg-opacity-95">
-            <div className="max-w-full overflow-x-auto no-scrollbar">
-                <div className="flex justify-between items-center min-w-max md:min-w-0 px-4 py-2 gap-6">
-                    <div className="flex items-center gap-6">
-                        <div className={`flex items-center gap-2 font-bold whitespace-nowrap ${hotCount > 0 ? 'text-red-400 animate-pulse' : 'text-slate-400'}`}>
-                            <Flame className={hotCount > 0 ? 'fill-red-500 text-red-500' : ''} size={18} />
-                            <span>{hotCount} HOT LEADS</span>
+        <div className="sticky top-0 z-40 bg-[#0b0c10]/95 text-white border-b border-white/5 backdrop-blur-xl font-body">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="flex justify-between items-center py-3 gap-6">
+                    <div className="flex items-center gap-8">
+                        {/* Hot Leads */}
+                        <div className={`flex items-center gap-2.5 font-bold text-[10px] tracking-[0.15em] uppercase transition-all ${hotCount > 0 ? 'text-rose-400' : 'text-gray-500'}`}>
+                            <Flame className={hotCount > 0 ? 'fill-rose-500/20 text-rose-500 animate-pulse' : ''} size={16} />
+                            <span>{hotCount} Hot Leads</span>
                         </div>
 
-                        <div className="w-px h-4 bg-slate-700" />
+                        <div className="w-px h-3 bg-white/10" />
 
-                        <div className="flex items-center gap-2 text-yellow-400 font-medium whitespace-nowrap">
-                            <span className="bg-yellow-500/20 px-2 py-0.5 rounded text-xs">WARM</span>
-                            <span>{warmCount} pending</span>
+                        {/* Warm Leads */}
+                        <div className="flex items-center gap-2.5 text-amber-400 font-bold text-[10px] tracking-[0.15em] uppercase">
+                            <Clock size={16} className="text-amber-500" />
+                            <span>{warmCount} Warm Pending</span>
                         </div>
 
-                        <div className="w-px h-4 bg-slate-700 hidden sm:block" />
+                        <div className="w-px h-3 bg-white/10 hidden sm:block" />
 
-                        <div className="flex items-center gap-2 text-slate-300 hidden sm:flex whitespace-nowrap">
-                            <Clock size={16} className="text-orange-400" />
-                            <span className="text-xs font-mono">{attentionCount} Needs Attention (&gt;10m)</span>
+                        {/* Attention */}
+                        <div className="flex items-center gap-2.5 text-gray-400 hidden sm:flex text-[10px] tracking-[0.15em] uppercase font-bold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.5)] animate-pulse" />
+                            <span>{attentionCount} Slow Response</span>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2 text-green-400 font-bold bg-green-500/10 px-3 py-1 rounded-full border border-green-500/20 whitespace-nowrap">
-                        <CheckCircle size={16} />
-                        <span>{convertedCount} CONVERTED</span>
+                    {/* Converted */}
+                    <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-[10px] tracking-[0.15em] uppercase bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20">
+                        <CheckCircle size={14} />
+                        <span>{convertedCount} Converted</span>
                     </div>
                 </div>
             </div>

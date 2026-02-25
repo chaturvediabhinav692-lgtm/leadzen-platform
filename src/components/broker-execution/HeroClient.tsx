@@ -23,15 +23,17 @@ export default function HeroClient({ clients, onMarkDone, onSnooze }: HeroClient
     const bestLead = sortedClients[0]; // Absolute top priority
 
     if (!bestLead) return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
-            <h3 className="text-2xl font-bold text-slate-800 mb-2">🎉 All caught up!</h3>
-            <p className="text-slate-500">No pending leads in your queue.</p>
+        <div className="bg-[#111217] rounded-2xl border border-white/5 p-16 text-center font-body">
+            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="text-gray-500" size={32} />
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-2">Queue Cleared</h3>
+            <p className="text-gray-500 max-w-xs mx-auto">No pending leads currently require immediate attention.</p>
         </div>
     );
 
-    const lastMsgTime = new Date(bestLead.lastActivity);
     const minsAgo = Math.floor((Date.now() - bestLead.lastActivityAt) / 60000);
-    const timeDisplay = minsAgo < 60 ? `${minsAgo} min ago` : new Date(bestLead.lastActivityAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const timeDisplay = minsAgo < 60 ? `${minsAgo}m ago` : new Date(bestLead.lastActivityAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const isActiveNow = minsAgo < 5;
 
     // Action Handlers
@@ -45,56 +47,71 @@ export default function HeroClient({ clients, onMarkDone, onSnooze }: HeroClient
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-2xl border-l-[12px] border-red-600 overflow-hidden relative group transform hover:scale-[1.01] transition-transform duration-300">
-            {/* Urgent Badge */}
-            <div className="absolute top-0 right-0 p-3 bg-red-600 rounded-bl-xl text-white font-black text-xs uppercase tracking-wider flex items-center gap-2 z-10 shadow-lg">
-                <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+        <div className="bg-[#111217] rounded-2xl border border-white/5 overflow-hidden relative group font-body">
+            {/* Priority Indicator */}
+            <div className="absolute top-0 right-0 px-4 py-2 bg-rose-500/10 border-b border-l border-rose-500/20 rounded-bl-2xl text-rose-400 font-bold text-[10px] tracking-[0.2em] uppercase flex items-center gap-2.5 z-10">
+                <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
                 </span>
-                HIGHEST PRIORITY
+                Highest Priority
             </div>
 
-            <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <div className="flex items-center gap-3 mb-2">
-                        <span className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">{bestLead.name}</span>
-                    </div>
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full font-bold text-sm flex items-center gap-1">
-                            <Flame size={14} className="fill-current" /> {bestLead.status.toUpperCase()}
-                        </span>
-                        <span className="text-slate-400 text-xl font-light">|</span>
-                        <span className="text-slate-600 text-lg font-medium">{bestLead.courseInterest}</span>
-
-                        <span className="text-slate-400 text-sm">in {bestLead.location}</span>
-                    </div>
-
-                    <div className={`mt-6 p-5 rounded-xl border-2 relative ${isActiveNow ? 'bg-green-50 border-green-200' : 'bg-slate-50 border-slate-100'}`}>
-                        <div className={`absolute -top-3 left-6 text-xs font-bold px-3 py-0.5 rounded-full border shadow-sm ${isActiveNow ? 'bg-green-100 text-green-700 border-green-200' : 'bg-slate-200 text-slate-600 border-slate-300'}`} suppressHydrationWarning>
-                            {isActiveNow ? 'ACTIVE NOW' : 'LAST MESSAGE'} • {timeDisplay}
+            <div className="p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-6">
+                    <div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-2">{bestLead.name}</h2>
+                        <div className="flex items-center gap-3 text-sm font-semibold">
+                            <span className="px-3 py-1 bg-rose-500/10 text-rose-400 rounded-full border border-rose-500/20 flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
+                                <Flame size={12} className="fill-current" /> {bestLead.status}
+                            </span>
+                            <span className="text-white/10">•</span>
+                            <span className="text-gray-400">{bestLead.courseInterest}</span>
+                            <span className="text-white/10">•</span>
+                            <span className="text-gray-500 font-normal">{bestLead.location}</span>
                         </div>
+                    </div>
 
-                        <p className="text-slate-800 text-xl font-medium leading-relaxed italic">"{bestLead.lastMessage}"</p>
+                    <div className={`p-6 rounded-2xl border transition-all ${isActiveNow ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-white/5 border-white/10'}`}>
+                        <div className="flex items-center gap-2 mb-3">
+                            <Clock size={14} className={isActiveNow ? 'text-emerald-400' : 'text-gray-500'} />
+                            <span className={`text-[10px] font-bold uppercase tracking-widest ${isActiveNow ? 'text-emerald-400' : 'text-gray-500'}`} suppressHydrationWarning>
+                                {isActiveNow ? 'Active Now' : 'Last Message'} • {timeDisplay}
+                            </span>
+                        </div>
+                        <p className="text-white text-xl font-medium leading-relaxed italic line-clamp-3">"{bestLead.lastMessage}"</p>
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-4 justify-center md:pl-8 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-slate-100">
-                    <button onClick={handleWhatsApp} className="w-full py-5 bg-green-600 hover:bg-green-500 text-white rounded-xl font-bold text-2xl flex items-center justify-center gap-3 shadow-xl hover:shadow-green-500/40 transition-all active:scale-95 group">
-                        <MessageCircle size={32} className="fill-current group-hover:scale-110 transition-transform" />
+                <div className="flex flex-col gap-4 justify-center md:pl-10 border-t md:border-t-0 md:border-l border-white/5 pt-8 md:pt-0">
+                    <button
+                        onClick={handleWhatsApp}
+                        className="w-full py-5 bg-emerald-500 text-white rounded-2xl font-bold text-xl flex items-center justify-center gap-3 hover:opacity-90 transition-all active:scale-95 shadow-xl shadow-emerald-500/20"
+                    >
+                        <MessageCircle size={24} className="fill-white" />
                         <span>WhatsApp</span>
                     </button>
 
-                    <button onClick={handleCall} className="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xl flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all">
-                        <Phone size={24} /> Call Client
+                    <button
+                        onClick={handleCall}
+                        className="w-full py-4 bg-white/5 border border-white/10 text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:bg-white/10 transition-all active:scale-95"
+                    >
+                        <Phone size={20} />
+                        <span>Call Record</span>
                     </button>
 
-                    <div className="grid grid-cols-2 gap-3 mt-2">
-                        <button onClick={() => onSnooze(bestLead.id)} className="py-2 text-slate-400 hover:text-slate-600 text-sm font-bold flex items-center justify-center gap-2 hover:bg-slate-50 rounded-lg">
-                            <Clock size={16} /> Snooze 10m
+                    <div className="grid grid-cols-2 gap-4 mt-2">
+                        <button
+                            onClick={() => onSnooze(bestLead.id)}
+                            className="py-3 px-4 bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:border-white/20 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2"
+                        >
+                            <Clock size={14} /> Snooze
                         </button>
-                        <button onClick={() => onMarkDone(bestLead.id)} className="py-2 text-indigo-600 hover:text-indigo-700 text-sm font-bold flex items-center justify-center gap-2 hover:bg-indigo-50 rounded-lg">
-                            <CheckCircle size={16} /> Mark Done
+                        <button
+                            onClick={() => onMarkDone(bestLead.id)}
+                            className="py-3 px-4 bg-accent/10 border border-accent/20 text-accent hover:bg-accent/20 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2"
+                        >
+                            <CheckCircle size={14} /> Done
                         </button>
                     </div>
                 </div>

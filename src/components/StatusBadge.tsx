@@ -7,11 +7,14 @@ interface StatusBadgeProps {
 
 // Colors: new → gray, contacted → blue, interested → yellow, converted → green, rejected → red
 const statusStyles: Record<ClientStatus, string> = {
-    new: 'bg-gray-100 text-gray-700 border-gray-200',
-    contacted: 'bg-blue-100 text-blue-700 border-blue-200',
-    interested: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-    converted: 'bg-green-100 text-green-700 border-green-200',
-    rejected: 'bg-red-100 text-red-700 border-red-200',
+    new: 'bg-gray-500/10 text-gray-400 border-gray-500/20',
+    hot: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
+    warm: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    cold: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    assigned: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+    converted: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    snoozed: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+    rejected: 'bg-rose-900/20 text-rose-500 border-rose-900/30',
 };
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
