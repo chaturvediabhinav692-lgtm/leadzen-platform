@@ -13,5 +13,5 @@ const navItems = [
 ];
 
 export default function BrokerSidebar() {
-    return <SidebarShell navItems={navItems} roleLabel="Sales Broker" roleEmail="broker@coaching.com" roleBadge="BR" />;
+    return <SidebarShell navItems={navItems} />;
 }

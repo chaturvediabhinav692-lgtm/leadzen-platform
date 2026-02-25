@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, LucideIcon } from 'lucide-react';
-import { useState } from 'react';
+import { Menu, X, LucideIcon, LogOut } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { clsx } from 'clsx';
-import { useStore } from '@/lib/store';
+import { useAuth } from '@/context/AuthContext';
 
 interface NavItem {
     name: string;
@@ -15,15 +15,34 @@ interface NavItem {
 
 interface SidebarShellProps {
     navItems: NavItem[];
-    roleLabel: string;
-    roleEmail: string;
-    roleBadge: string;
+    // Legacy props kept for compatibility but ignored in favor of dynamic logic
+    roleLabel?: string;
+    roleEmail?: string;
+    roleBadge?: string;
 }
 
-export default function SidebarShell({ navItems, roleLabel, roleEmail, roleBadge }: SidebarShellProps) {
+export default function SidebarShell({ navItems }: SidebarShellProps) {
+    const { logout } = useAuth();
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
-    const { role, setRole } = useStore();
+    const [role, setRole] = useState<string | null>(null);
+
+    useEffect(() => {
+        setRole(localStorage.getItem("leadflow_role"));
+    }, []);
+
+    const user =
+        role === "coaching"
+            ? {
+                name: "Business Manager",
+                email: "manager@leadzen.com",
+                initials: "BM",
+            }
+            : {
+                name: "Service Professional",
+                email: "user@leadzen.com",
+                initials: "SP",
+            };
 
     return (
         <>
@@ -53,9 +72,9 @@ export default function SidebarShell({ navItems, roleLabel, roleEmail, roleBadge
 
                     <div className="p-6 border-b border-[#1f1f1f]">
                         <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
-                            LeadFlow
+                            Leadzen
                         </h1>
-                        <p className="text-xs text-slate-500 mt-1">Coaching Platform</p>
+                        <p className="text-xs text-slate-500 mt-1">Automation Platform</p>
                     </div>
 
                     <nav className="flex-1 p-4 space-y-2">
@@ -81,29 +100,23 @@ export default function SidebarShell({ navItems, roleLabel, roleEmail, roleBadge
                     </nav>
 
                     <div className="p-4 border-t border-[#1f1f1f] space-y-4">
-                        {/* Role Switcher for Testing */}
-                        <div className="bg-[#111111] p-2 rounded border border-[#1f1f1f]">
-                            <label className="text-[10px] text-slate-500 uppercase font-bold block mb-1">Role Switcher (Test)</label>
-                            <select
-                                value={role}
-                                onChange={(e) => setRole(e.target.value as any)}
-                                className="w-full bg-[#0a0a0a] text-white text-xs p-1 rounded border border-[#1f1f1f] focus:outline-none focus:border-[#262626]"
-                            >
-                                <option value="admin">Admin</option>
-                                <option value="owner">Coaching Owner</option>
-                                <option value="broker">Broker</option>
-                            </select>
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center text-[10px] font-black border border-purple-500/20 text-purple-400">
+                                {user.initials}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-xs font-bold text-slate-200 truncate">{user.name}</p>
+                                <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
+                            </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-[#1f1f1f] flex items-center justify-center text-xs font-bold border border-[#262626]">
-                                {roleBadge}
-                            </div>
-                            <div>
-                                <p className="text-sm font-medium">{roleLabel}</p>
-                                <p className="text-xs text-slate-500">{roleEmail}</p>
-                            </div>
-                        </div>
+                        <button
+                            onClick={() => logout()}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-500/5 hover:bg-red-500/10 text-red-400 border border-red-500/10 rounded-xl transition-all active:scale-[0.98] group"
+                        >
+                            <LogOut size={14} className="group-hover:-translate-x-0.5 transition-transform" />
+                            <span className="text-[10px] font-black uppercase tracking-widest">Logout System</span>
+                        </button>
                     </div>
                 </div>
             </aside>

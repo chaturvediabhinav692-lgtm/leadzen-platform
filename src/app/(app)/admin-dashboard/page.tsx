@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import { getStoredTickets, resolveStoredTicket } from '@/lib/ticketStorage';
 
 export default function AdminDashboardPage() {
-    const { platformClients } = useStore();
+    const { platformClients, users, approveUser } = useStore();
     const [tickets, setTickets] = useState<Ticket[]>([]);
     const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
 
@@ -33,7 +33,7 @@ export default function AdminDashboardPage() {
     const totalRevenue = platformClients.reduce((acc, c) => acc + c.revenue, 0);
 
     return (
-        <RouteGuard>
+        <RouteGuard allowedRoles={['admin']}>
             <div className="max-w-7xl mx-auto space-y-8 pb-32 px-4 sm:px-0">
                 {/* Header */}
                 <div>
@@ -95,6 +95,7 @@ export default function AdminDashboardPage() {
                         </div>
                     </div>
                 </div>
+
 
                 {/* 4. Ticket Management Table */}
                 <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">

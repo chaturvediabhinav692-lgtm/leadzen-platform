@@ -1,44 +1,65 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
-import { useStore } from '@/lib/store';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { LogOut, Loader2 } from 'lucide-react';
 
-// Route Rules
-const RULES: Record<string, string[]> = {
-    '/dashboard': ['admin', 'owner'],
-    '/student-dashboard': ['admin', 'owner'],
-    '/broker-dashboard': ['admin', 'broker'],
-    '/broker-command-center': ['admin', 'broker'],
-    '/clients': ['admin', 'owner', 'broker'],
-    '/admin-dashboard': ['admin'],
-    '/admin/tickets': ['admin'],
-    '/admin/clients': ['admin'],
-    '/admin/payments': ['admin'],
-    '/support': ['owner', 'broker'], // Admin uses Admin Dashboard
-    '/help': ['owner', 'broker'],    // Admin doesn't submit tickets
-    '/my-tickets': ['owner', 'broker'],
-    '/coaching-dashboard': ['admin'],
-    // Admin Sidebar has it, Owner doesn't strictly have it in your spec.
-    // Admin Sidebar: Sales Cockpit, Lead Intake, Command Center, Clients, Pipeline Overview.
-};
+interface RouteGuardProps {
+    children: React.ReactNode;
+    allowedRoles?: string[];
+}
 
-export default function RouteGuard({ children }: { children: React.ReactNode }) {
-    const { role } = useStore();
-    const pathname = usePathname();
+export default function RouteGuard({ children, allowedRoles }: RouteGuardProps) {
     const router = useRouter();
+    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Find matching rule
-        const allowedRoles = RULES[pathname];
+        const checkAuth = () => {
+            const token = localStorage.getItem("token");
+            const userStr = localStorage.getItem("user");
+            const role = localStorage.getItem("role");
 
-        if (allowedRoles && !allowedRoles.includes(role)) {
-            // Redirect based on role
-            if (role === 'broker') router.push('/broker-dashboard');
-            else if (role === 'owner') router.push('/dashboard');
-            else router.push('/dashboard'); // Admin fallback
-        }
-    }, [pathname, role, router]);
+            if (!token || !userStr || !role) {
+                router.replace("/product/leadflow/auth");
+                return;
+            }
 
-    return <>{children}</>;
+            const user = JSON.parse(userStr);
+
+            // If account is not approved, block
+            if (user.status !== 'approved' && user.role !== 'admin') {
+                router.replace("/product/leadflow/auth");
+                return;
+            }
+
+            // Role check
+            if (allowedRoles && !allowedRoles.includes(role)) {
+                // Redirect to correct dashboard based on actual role
+                if (role === 'admin') router.replace("/admin-dashboard");
+                else if (role === 'coaching') router.replace("/product/leadflow/dashboard/business");
+                else if (role === 'broker') router.replace("/product/leadflow/dashboard/professional");
+                else router.replace("/product/leadflow");
+                return;
+            }
+
+            setIsAuthorized(true);
+            setIsLoading(false);
+        };
+
+        checkAuth();
+    }, [router, allowedRoles]);
+
+    if (isLoading) {
+        return (
+            <div className="fixed inset-0 bg-slate-50 flex items-center justify-center z-[9999]">
+                <div className="flex flex-col items-center gap-4">
+                    <Loader2 className="w-8 h-8 text-purple-600 animate-spin" />
+                    <p className="text-xs font-black uppercase tracking-widest text-slate-400">Verifying Security Clearence...</p>
+                </div>
+            </div>
+        );
+    }
+
+    return isAuthorized ? <>{children}</> : null;
 }

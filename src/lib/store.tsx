@@ -13,6 +13,25 @@ interface StoreContextType {
     platformClients: PlatformClient[];
     payments: Payment[];
     activityLog: { type: string, text: string, time: string, user: string }[];
+    users: {
+        id: string,
+        name: string,
+        email: string,
+        phone: string,
+        profession: string,
+        businessName: string,
+        city?: string,
+        role: string,
+        status: string,
+        plan?: "starter" | "growth",
+        subscriptionStart?: string,
+        subscriptionEnd?: string
+    }[];
+    currentUser: any | null;
+    registerUser: (userData: any) => void;
+    approveUser: (userId: string) => void;
+    rejectUser: (userId: string) => void;
+    setCurrentUser: (user: any | null) => void;
     updateClientStatus: (clientId: string, status: ClientStatus) => void;
     assignBroker: (clientId: string, brokerId: string | null) => void;
     addNote: (clientId: string, note: string) => void;
@@ -41,6 +60,98 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
     // In a real app we'd load here
 
     const [role, setRole] = useState<'admin' | 'owner' | 'broker'>('admin');
+    const [users, setUsers] = useState<any[]>([
+        {
+            id: 'admin-0',
+            name: 'System Admin',
+            email: 'admin@euonex.io',
+            role: 'admin',
+            status: 'active',
+            businessName: 'Euonex HQ',
+            profession: 'Infrastructure',
+            plan: 'growth',
+            subscriptionStart: new Date().toISOString(),
+            subscriptionEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+        },
+        {
+            id: 'admin-1',
+            name: 'Abhinav Chaturvedi',
+            email: 'chaturvediabhinav692@gmail.com',
+            role: 'admin',
+            status: 'approved',
+            businessName: 'Leadzen',
+            profession: 'System Administrator',
+            plan: 'growth',
+            subscriptionStart: new Date().toISOString(),
+            subscriptionEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+        },
+        {
+            id: 'test-coaching',
+            name: 'Test Coaching',
+            email: 'test-coaching@euonex.io',
+            phone: '555-1111',
+            profession: 'Business Expert',
+            businessName: 'Professional Academy',
+            city: 'Dubai',
+            role: 'coaching',
+            status: 'pending',
+            plan: 'growth'
+        },
+        {
+            id: 'test-broker',
+            name: 'Test Broker',
+            email: 'test-broker@euonex.io',
+            phone: '555-2222',
+            profession: 'Service Provider',
+            businessName: 'Service Agency',
+            city: 'Pune',
+            role: 'broker',
+            status: 'pending',
+            plan: 'starter'
+        }
+    ]);
+    const [currentUser, setCurrentUser] = useState<any | null>(null);
+
+    const registerUser = (userData: any) => {
+        const profession = userData.profession?.toLowerCase() || '';
+        let role = 'broker'; // default
+
+        if (profession.includes('coach')) {
+            role = 'coaching';
+        } else if (profession.includes('real estate')) {
+            role = 'broker';
+        }
+
+        const newUser = {
+            ...userData,
+            id: `u${Date.now()}`,
+            status: 'pending',
+            role: role
+        };
+        setUsers(prev => [...prev, newUser]);
+    };
+
+    const approveUser = (userId: string) => {
+        setUsers(prev => prev.map(u => {
+            if (u.id === userId) {
+                const subStart = new Date();
+                const subEnd = new Date();
+                subEnd.setMonth(subEnd.getMonth() + 1);
+
+                return {
+                    ...u,
+                    status: 'approved',
+                    subscriptionStart: subStart.toISOString(),
+                    subscriptionEnd: subEnd.toISOString()
+                };
+            }
+            return u;
+        }));
+    };
+
+    const rejectUser = (userId: string) => {
+        setUsers(prev => prev.map(u => u.id === userId ? { ...u, status: 'rejected' } : u));
+    };
 
     const addTicket = (ticketData: Omit<Ticket, 'id' | 'createdDate' | 'status'>) => {
         const newTicket: Ticket = {
@@ -111,7 +222,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
                 // If message is from broker, status might change to contacted if it was new
                 let newStatus = client.status;
                 if (sender === 'broker' && client.status === 'new') {
-                    newStatus = 'contacted';
+                    newStatus = 'assigned';
                 }
 
                 return {
@@ -157,7 +268,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         // Update Activity
         const note = `Called ${client.name}`;
         addActivity(clientId, { type: 'call', content: note });
-        logGlobalActivity('call', `Called ${client.name}`, role === 'owner' ? 'Owner' : 'Broker');
+        logGlobalActivity('call', `Called ${client.name}`, 'Admin');
     };
 
     const whatsappLead = (clientId: string, message: string = "Hi, following up on your inquiry. Let me know a good time to connect.") => {
@@ -170,7 +281,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         // Update Activity
         const note = `WhatsApp: ${message}`;
         addActivity(clientId, { type: 'message', content: note });
-        logGlobalActivity('message', `Messaged ${client.name}`, role === 'owner' ? 'Owner' : 'Broker');
+        logGlobalActivity('message', `Messaged ${client.name}`, 'Admin');
     };
 
     const snoozeLead = (clientId: string, hours: number = 24) => {
@@ -184,7 +295,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
                     content: `Snoozed until ${new Date(snoozeUntil).toLocaleString()}`,
                     timestamp: new Date().toISOString()
                 };
-                logGlobalActivity('status', `Snoozed ${client.name} for ${hours}h`, role === 'owner' ? 'Owner' : 'Broker');
+                logGlobalActivity('status', `Snoozed ${client.name} for ${hours}h`, 'Admin');
                 return {
                     ...client,
                     status: 'snoozed',
@@ -260,6 +371,12 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         <StoreContext.Provider value={{
             role,
             setRole,
+            users,
+            currentUser,
+            registerUser,
+            approveUser,
+            rejectUser,
+            setCurrentUser,
             clients: sortLeads(clients), // Auto-sort on read
             brokers,
             tickets,

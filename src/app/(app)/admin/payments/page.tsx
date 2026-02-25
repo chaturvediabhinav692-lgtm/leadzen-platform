@@ -113,12 +113,12 @@ export default function AdminPaymentsPage() {
                                     <td className="px-6 py-4 font-mono text-slate-700">₹{payment.amount.toLocaleString()}</td>
                                     <td className="px-6 py-4">
                                         <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase ${payment.status === 'Paid' ? 'bg-green-100 text-green-700' :
-                                                payment.status === 'Pending' ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'
+                                            payment.status === 'Pending' ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'
                                             }`}>
                                             {payment.status}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-right text-sm text-slate-500">{new Date(payment.date).toLocaleDateString()}</td>
+                                    <td className="px-6 py-4 text-right text-sm text-slate-500" suppressHydrationWarning>{new Date(payment.date).toLocaleDateString()}</td>
                                 </tr>
                             ))}
                         </tbody>
