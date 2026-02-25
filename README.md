@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Euonex Platform
 
-## Getting Started
+![Version](https://img.shields.io/badge/version-0.1.0-purple.svg)
+![License](https://img.shields.io/badge/license-private-black.svg)
 
-First, run the development server:
+A premium, automation-driven SaaS infrastructure for professional service businesses. The **Euonex Platform** serves as the parent infrastructure for specialized products, currently featuring **Leadzen**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔹 Branding Hierarchy
+- **Euonex**: The parent company providing global infrastructure and system-level coordination.
+- **Leadzen**: The flagship product designed for lead capture, routing, and real-time execution.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Key Features (Leadzen)
+- **Universal Dashboard**: Role-specific interfaces for Business Managers and Service Professionals.
+- **Lead Capture & Routing**: Automated categorization and assignment of incoming leads.
+- **Real-Time Communication**: Integrated WhatsApp and messaging workflows.
+- **Activity Streams**: Live tracking of interactions and priority shifts.
+- **Admin Command Center**: Centralized client management and system health monitoring.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Tech Stack
+- **Frontend**: Next.js 16 (App Router), React 19, TypeScript
+- **Styling**: Tailwind CSS 4, Framer Motion (for premium animations)
+- **Icons**: Lucide React
+- **Component Design**: "Dark Utility" design system with deep glassmorphism and custom glow effects.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📦 Getting Started
 
-## Deploy on Vercel
+### Prerequisites
+- Node.js (Latest LTS version)
+- npm or yarn
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/chaturvediabhinav692-lgtm/leadflow-platform.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📧 Contact & Support
+For general inquiries, technical support, or enterprise deployment:
+
+- **Email**: [euonex@gmail.com](mailto:euonex@gmail.com)
+- **Support Portal**: [Platform Support](http://localhost:3000/support)
+
+---
+
+© 2026 Euonex Systems Inc. All rights reserved.
