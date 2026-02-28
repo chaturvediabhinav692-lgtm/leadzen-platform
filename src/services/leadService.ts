@@ -1,5 +1,5 @@
 import { apiRequest } from '@/lib/api';
-import { Client } from '@/lib/mockData';
+import { Client } from '@/lib/types';
 
 export const leadService = {
     async getLeads(): Promise<Client[]> {
@@ -17,7 +17,13 @@ export const leadService = {
         });
     },
 
-    async updateLead(id: string, updates: Partial<Client>): Promise<Client> {
+    async updateLead(
+        id: string,
+        updates: {
+            status?: "new" | "hot" | "warm" | "cold" | "assigned" | "converted" | "snoozed" | "rejected";
+            assignedBrokerId?: string | null;
+        }
+    ): Promise<Client> {
         return apiRequest<Client>(`/leads/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(updates)
