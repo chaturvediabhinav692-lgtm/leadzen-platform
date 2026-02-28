@@ -24,9 +24,19 @@ A premium, automation-driven SaaS infrastructure for professional service busine
 
 ## 🛠 Tech Stack
 - **Frontend**: Next.js 16 (App Router), React 19, TypeScript
+- **Backend**: Node.js, Express (Modular Architecture)
 - **Styling**: Tailwind CSS 4, Framer Motion (for premium animations)
 - **Icons**: Lucide React
 - **Component Design**: "Dark Utility" design system with deep glassmorphism and custom glow effects.
+
+---
+
+## 🏗 Architecture
+The platform has been transitioned to a fully API-driven architecture:
+- **Centralized API Wrapper**: Standardized handling via `src/lib/api.ts`.
+- **Domain Services**: Dedicated frontend services for `leads` and `tickets`.
+- **Decoupled Backend**: Modular Node/Express server handling data and validation.
+- **Contract-First**: Strict `{ success, data, error }` response format.
 
 ---
 
@@ -41,14 +51,28 @@ A premium, automation-driven SaaS infrastructure for professional service busine
    ```bash
    git clone https://github.com/chaturvediabhinav692-lgtm/leadflow-platform.git
    ```
-2. Install dependencies:
+2. Install dependencies (Root & Backend):
    ```bash
    npm install
+   cd backend
+   npm install
+   cd ..
    ```
-3. Run the development server:
+
+### Running Locally
+You need to run both the backend and frontend servers:
+
+1. **Start Backend**:
+   ```bash
+   node backend/server.js
+   ```
+   (Server runs on `http://localhost:8000`)
+
+2. **Start Frontend**:
    ```bash
    npm run dev
    ```
+   (Platform runs on `http://localhost:3000`)
 
 ---
 
