@@ -1,13 +1,15 @@
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="min-h-screen bg-[#050507] text-white flex items-center justify-center px-4 font-body">
-            <div className="w-full max-w-md border border-white/5 rounded-[2.5rem] p-10 bg-[#0b0c10] shadow-2xl relative overflow-hidden">
-                {/* Background Glow */}
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-purple-600/10 blur-[60px] rounded-full pointer-events-none" />
-                <div className="relative z-10">
-                    {children}
-                </div>
-            </div>
-        </div>
-    );
+import { Outlet } from 'react-router-dom';
+
+export default function AuthLayout() {
+  return (
+    <div className="min-h-screen bg-[#030303] flex items-center justify-center p-6 relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute top-1/4 -left-20 w-80 h-80 bg-white/5 rounded-full blur-[100px] -z-10" />
+      <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-white/5 rounded-full blur-[100px] -z-10" />
+      
+      <div className="w-full max-w-md animate-fade-in">
+        <Outlet />
+      </div>
+    </div>
+  );
 }

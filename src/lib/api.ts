@@ -1,37 +1,78 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+import { ApiResponse } from './types';
 
-interface ApiResponse<T = any> {
-    success: boolean;
-    data: T;
-    error?: string;
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+
+interface FetchOptions extends RequestInit {
+  timeout?: number;
+  retries?: number;
 }
 
-export async function apiRequest<T = any>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    const headers = new Headers({
-        "Content-Type": "application/json",
-        ...(options.headers || {}),
-    });
+export async function apiRequest<T>(
+  endpoint: string,
+  options: FetchOptions = {}
+): Promise<ApiResponse<T>> {
+  const { timeout = 8000, retries = 2, ...fetchOptions } = options;
 
-    if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-    }
+  const url = `${API_BASE_URL}${endpoint}`;
+  
+  // Default headers
+  const headers = new Headers(fetchOptions.headers);
+  if (!headers.has('Content-Type') && !(fetchOptions.body instanceof FormData)) {
+    headers.set('Content-Type', 'application/json');
+  }
 
-    const res = await fetch(`${BASE_URL}${endpoint}`, {
-        ...options,
+  let lastError: any;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+    try {
+      const response = await fetch(url, {
+        ...fetchOptions,
         headers,
-    });
+        signal: controller.signal,
+        credentials: 'include', // Important for httpOnly cookies
+      });
 
-    if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+      clearTimeout(timeoutId);
+
+      const result: ApiResponse<T> = await response.json();
+
+      if (!response.ok || !result.success) {
+        // Hardened Security: Handle 403 Forbidden globally
+        if (response.status === 403) {
+          window.location.href = '/403';
+          throw new Error('Access Denied: Security Clearance Failure');
+        }
+        
+        throw new Error(result.error || `HTTP error! status: ${response.status}`);
+      }
+
+      return result;
+    } catch (error: any) {
+      clearTimeout(timeoutId);
+      lastError = error;
+
+      if (error.name === 'AbortError') {
+        lastError = new Error('Request timed out after 8 seconds');
+      }
+
+      // Don't retry on certain errors (e.g., unauthorized) if needed, 
+      // but for now we follow the "Retry 2x" rule.
+      if (attempt < retries) {
+        const backoff = Math.pow(2, attempt) * 1000;
+        await sleep(backoff);
+        continue;
+      }
     }
+  }
 
-    const result: ApiResponse<T> = await res.json();
-
-    if (!result.success) {
-        throw new Error(result.error || "API request failed");
-    }
-
-    return result.data;
+  return {
+    success: false,
+    data: null as any,
+    error: lastError?.message || 'An unexpected error occurred',
+  };
 }
