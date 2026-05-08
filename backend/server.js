@@ -3,8 +3,11 @@ const cors = require('cors');
 require('dotenv').config();
 
 const authMiddleware = require('./middleware/auth.middleware');
+const authRoutes = require('./routes/auth.routes');
 const leadsRoutes = require('./routes/leads.routes');
 const ticketsRoutes = require('./routes/tickets.routes');
+const usersRoutes = require('./routes/users.routes');
+const analyticsRoutes = require('./routes/analytics.routes');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -15,8 +18,11 @@ app.use(express.json());
 app.use(authMiddleware);
 
 // 2. Routes
+app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/leads', leadsRoutes);
 app.use('/api/v1/tickets', ticketsRoutes);
+app.use('/api/v1/users', usersRoutes);
+app.use('/api/v1/analytics', analyticsRoutes);
 
 // 3. 404 Handler
 app.use((req, res) => {
